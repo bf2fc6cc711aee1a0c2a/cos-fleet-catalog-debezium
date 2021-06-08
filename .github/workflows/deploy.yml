@@ -1,0 +1,27 @@
+name: Deploy Debezium COS Fleet Catalog config
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - '.github/workflows/deploy.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: openshift/origin-cli:latest
+    steps:
+      - name: Checkout Debezium COS Fleet Catalog
+        uses: actions/checkout@v2
+      - name: Login to OpenShift cluster
+        run: oc login --insecure-skip-tls-verify ${{ secrets.K8S_CLUSTER_DEV }} -u ${{ secrets.K8S_CLUSTER_DEV_USER }} -p ${{ secrets.K8S_CLUSTER_DEV_PASSWORD }}
+      - name: Deploy Debezium COS Fleet Catalog ConfigMaps
+        run: >
+          cd src/main/resources/META-INF/resources/ ;
+          for dir in $(ls -d */ | cut -f1 -d'/') ; do
+            echo "Deploying ${dir}..." ;
+            oc delete configmap "connector-catalog-debezium-${dir}" --namespace ${{ secrets.K8S_CLUSTER_DEV_NAMESPACE }} || true;
+            oc create configmap "connector-catalog-debezium-${dir}" --from-file=${dir}/ --namespace ${{ secrets.K8S_CLUSTER_DEV_NAMESPACE }} -o yaml ;
+          done
