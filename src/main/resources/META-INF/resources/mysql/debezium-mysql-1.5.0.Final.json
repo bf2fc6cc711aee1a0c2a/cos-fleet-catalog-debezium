@@ -8,12 +8,8 @@
     "title": "Debezium MySQL Connector",
     "description": null,
     "icon_href": "http://example.com/images/debezium-mysql-1.5.0.Final.png",
-    "labels": [
-      "source",
-      "debezium",
-      "mysql",
-      "1.5.0.Final"
-    ],
+    "labels": ["source", "debezium", "mysql", "1.5.0.Final"],
+    "channels" : ["stable"],
     "json_schema": {
       "title": "Debezium MySQL Connector",
       "required": [
@@ -70,12 +66,22 @@
           "x-category": "CONNECTION"
         },
         "database.password": {
-          "format": "password",
           "title": "Password",
           "description": "Password of the database user to be used when connecting to the database.",
-          "type": "string",
           "x-name": "database.password",
-          "x-category": "CONNECTION"
+          "x-category": "CONNECTION",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "password",
+              "description": "Password of the database user to be used when connecting to the database."
+            },
+            {
+              "description": "An opaque reference to the password.",
+              "type": "object",
+              "properties": { }
+            }
+          ]
         },
         "database.history.kafka.bootstrap.servers": {
           "title": "Kafka broker addresses",
@@ -125,12 +131,22 @@
           "x-category": "CONNECTION_ADVANCED_SSL"
         },
         "database.ssl.keystore.password": {
-          "format": "password",
           "title": "SSL Keystore Password",
           "description": "Password to access the private key from the keystore file specified by 'ssl.keystore' configuration property or the 'javax.net.ssl.keyStore' system or JVM property. This password is used to unlock the keystore file (store password), and to decrypt the private key stored in the keystore (key password).",
-          "type": "string",
           "x-name": "database.ssl.keystore.password",
-          "x-category": "CONNECTION_ADVANCED_SSL"
+          "x-category": "CONNECTION_ADVANCED_SSL",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "password",
+              "description": "Password to access the private key from the keystore file specified by 'ssl.keystore' configuration property or the 'javax.net.ssl.keyStore' system or JVM property. This password is used to unlock the keystore file (store password), and to decrypt the private key stored in the keystore (key password)."
+            },
+            {
+              "description": "An opaque reference to the password.",
+              "type": "object",
+              "properties": { }
+            }
+          ]
         },
         "database.ssl.truststore": {
           "title": "SSL Truststore",
@@ -140,12 +156,22 @@
           "x-category": "CONNECTION_ADVANCED_SSL"
         },
         "database.ssl.truststore.password": {
-          "format": "password",
           "title": "SSL Truststore Password",
           "description": "Password to unlock the keystore file (store password) specified by 'ssl.trustore' configuration property or the 'javax.net.ssl.trustStore' system or JVM property.",
-          "type": "string",
           "x-name": "database.ssl.truststore.password",
-          "x-category": "CONNECTION_ADVANCED_SSL"
+          "x-category": "CONNECTION_ADVANCED_SSL",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "password",
+              "description": "Password to unlock the keystore file (store password) specified by 'ssl.trustore' configuration property or the 'javax.net.ssl.trustStore' system or JVM property."
+            },
+            {
+              "description": "An opaque reference to the password.",
+              "type": "object",
+              "properties": { }
+            }
+          ]
         },
         "database.server.id.offset": {
           "format": "int64",
@@ -336,6 +362,22 @@
           "type": "string",
           "x-name": "snapshot.select.statement.overrides",
           "x-category": "CONNECTOR_SNAPSHOT"
+        },
+        "+dbz.message.key.format" : {
+          "title" : "Kafka Message Key Format",
+          "description" : "The serialization format for the Kafka message key.",
+          "type" : "string",
+          "enum" : [ "JSON", "JSON without Schema", "AVRO"],
+          "x-name" : "+dbz.message.key.format",
+          "x-category" : "CONNECTOR"
+        },
+        "+dbz.message.value.format" : {
+          "title" : "Kafka Message Value Format",
+          "description" : "The serialization format for the Kafka message value.",
+          "type" : "string",
+          "enum" : [ "JSON", "JSON without Schema", "AVRO"],
+          "x-name" : "+dbz.message.value.format",
+          "x-category" : "CONNECTOR"
         },
         "include.schema.changes": {
           "title": "Include database schema changes",

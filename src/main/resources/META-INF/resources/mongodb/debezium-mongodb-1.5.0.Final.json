@@ -9,6 +9,7 @@
     "description" : null,
     "icon_href" : "http://example.com/images/debezium-mongodb-1.5.0.Final.png",
     "labels": ["source", "debezium", "mongodb", "1.5.0.Final"],
+    "channels" : ["stable"],
     "json_schema" : {
       "title" : "Debezium MongoDB Connector",
       "required" : [ "mongodb.name" ],
@@ -16,7 +17,7 @@
       "properties" : {
         "mongodb.name" : {
           "title" : "Namespace",
-          "description" : "Unique name that identifies the MongoDB replica set or cluster and all recorded offsets, andthat is used as a prefix for all schemas and topics. Each distinct MongoDB installation should have a separate namespace and monitored by at most one Debezium connector.",
+          "description" : "Unique name that identifies the MongoDB replica set or cluster and all recorded offsets, and that is used as a prefix for all schemas and topics. Each distinct MongoDB installation should have a separate namespace and monitored by at most one Debezium connector.",
           "type" : "string",
           "nullable" : false,
           "x-name" : "mongodb.name",
@@ -46,12 +47,22 @@
           "x-category" : "CONNECTION"
         },
         "mongodb.password" : {
-          "format" : "password",
           "title" : "Password",
           "description" : "Password to be used when connecting to MongoDB, if necessary.",
-          "type" : "string",
           "x-name" : "mongodb.password",
-          "x-category" : "CONNECTION"
+          "x-category" : "CONNECTION",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "password",
+              "description" : "Password to be used when connecting to MongoDB, if necessary."
+            },
+            {
+              "description": "An opaque reference to the password.",
+              "type": "object",
+              "properties": { }
+            }
+          ]
         },
         "mongodb.poll.interval.ms" : {
           "format" : "int64",
@@ -227,9 +238,25 @@
           "x-name" : "snapshot.max.threads",
           "x-category" : "CONNECTOR_SNAPSHOT"
         },
+        "+dbz.message.key.format" : {
+          "title" : "Kafka Message Key Format",
+          "description" : "The serialization format for the Kafka message key.",
+          "type" : "string",
+          "enum" : [ "JSON", "JSON without Schema", "AVRO"],
+          "x-name" : "+dbz.message.key.format",
+          "x-category" : "CONNECTOR"
+        },
+        "+dbz.message.value.format" : {
+          "title" : "Kafka Message Value Format",
+          "description" : "The serialization format for the Kafka message value.",
+          "type" : "string",
+          "enum" : [ "JSON", "JSON without Schema", "AVRO"],
+          "x-name" : "+dbz.message.value.format",
+          "x-category" : "CONNECTOR"
+        },
         "tombstones.on.delete" : {
           "title" : "Change the behaviour of Debezium with regards to delete operations",
-          "description" : "Whether delete operations should be represented by a delete event and a subsquenttombstone event (true) or only by a delete event (false). Emitting the tombstone event (the default behavior) allows Kafka to completely delete all events pertaining to the given key once the source record got deleted.",
+          "description" : "Whether delete operations should be represented by a delete event and a subsquent tombstone event (true) or only by a delete event (false). Emitting the tombstone event (the default behavior) allows Kafka to completely delete all events pertaining to the given key once the source record got deleted.",
           "default" : true,
           "type" : "boolean",
           "x-name" : "tombstones.on.delete",

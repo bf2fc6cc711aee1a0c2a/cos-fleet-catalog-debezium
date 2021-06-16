@@ -8,12 +8,8 @@
     "title": "Debezium PostgreSQL Connector",
     "description": null,
     "icon_href": "http://example.com/images/debezium-postgres-1.5.0.Final.png",
-    "labels": [
-      "source",
-      "debezium",
-      "postgres",
-      "1.5.0.Final"
-    ],
+    "labels": ["source", "debezium", "postgres", "1.5.0.Final"],
+    "channels" : ["stable"],
     "json_schema": {
       "title": "Debezium PostgreSQL Connector",
       "required": [
@@ -58,12 +54,22 @@
           "x-category": "CONNECTION"
         },
         "database.password": {
-          "format": "password",
           "title": "Password",
           "description": "Password of the database user to be used when connecting to the database.",
-          "type": "string",
           "x-name": "database.password",
-          "x-category": "CONNECTION"
+          "x-category": "CONNECTION",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "password",
+              "description": "Password of the database user to be used when connecting to the database."
+            },
+            {
+              "description": "An opaque reference to the password.",
+              "type": "object",
+              "properties": { }
+            }
+          ]
         },
         "database.dbname": {
           "title": "Database",
@@ -95,12 +101,22 @@
           "x-category": "CONNECTION_ADVANCED_SSL"
         },
         "database.sslpassword": {
-          "format": "password",
           "title": "SSL Client Key Password",
           "description": "Password to access the client private key from the file specified by 'database.sslkey'. See the Postgres SSL docs for further information",
-          "type": "string",
           "x-name": "database.sslpassword",
-          "x-category": "CONNECTION_ADVANCED_SSL"
+          "x-category": "CONNECTION_ADVANCED_SSL",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "password",
+              "description": "Password to access the client private key from the file specified by 'database.sslkey'. See the Postgres SSL docs for further information"
+            },
+            {
+              "description": "An opaque reference to the password.",
+              "type": "object",
+              "properties": { }
+            }
+          ]
         },
         "database.sslrootcert": {
           "title": "SSL Root Certificate",
@@ -362,6 +378,22 @@
           "type": "string",
           "x-name": "snapshot.custom.class",
           "x-category": "CONNECTOR_SNAPSHOT"
+        },
+        "+dbz.message.key.format" : {
+          "title" : "Kafka Message Key Format",
+          "description" : "The serialization format for the Kafka message key.",
+          "type" : "string",
+          "enum" : [ "JSON", "JSON without Schema", "AVRO"],
+          "x-name" : "+dbz.message.key.format",
+          "x-category" : "CONNECTOR"
+        },
+        "+dbz.message.value.format" : {
+          "title" : "Kafka Message Value Format",
+          "description" : "The serialization format for the Kafka message value.",
+          "type" : "string",
+          "enum" : [ "JSON", "JSON without Schema", "AVRO"],
+          "x-name" : "+dbz.message.value.format",
+          "x-category" : "CONNECTOR"
         },
         "tombstones.on.delete": {
           "title": "Change the behaviour of Debezium with regards to delete operations",
