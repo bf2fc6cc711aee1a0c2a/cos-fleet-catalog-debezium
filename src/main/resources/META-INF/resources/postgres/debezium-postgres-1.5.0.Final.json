@@ -698,6 +698,10 @@
       "revision" : 1,
       "shard_metadata" : {
         "connector_type" : "source",
+        "connector_class" : "io.debezium.connector.postgresql.PostgresConnector",
+        "connector_name" : "postgres",
+        "connector_version" : "1.5.3.Final",
+        "connector_sha512sum" : "8b4aff3142e0340ece4586d53793bd2108d8f0fa1f87f86a741d79715cd895d7ed32959e16db63604bafb747987fe3acb789e029401e9714cd9e40f3eb5c2364",
         "operators" : [
           {
             "type" : "debezium-connector-operator",

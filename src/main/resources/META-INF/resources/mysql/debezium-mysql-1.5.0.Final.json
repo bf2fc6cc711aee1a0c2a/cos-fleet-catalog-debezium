@@ -743,6 +743,10 @@
       "revision" : 1,
       "shard_metadata" : {
         "connector_type" : "source",
+        "connector_class" : "io.debezium.connector.mysql.MySqlConnector",
+        "connector_name" : "mysql",
+        "connector_version" : "1.5.3.Final",
+        "connector_sha512sum" : "b5c737021fc981125b64fc5ea0b874e3166fc9115167b270930ae314d693c8c4d9da1adece160574f27eb080899be7e784606b3b70ca9650b326b2cfd49e9986",
         "operators" : [
           {
             "type" : "debezium-connector-operator",

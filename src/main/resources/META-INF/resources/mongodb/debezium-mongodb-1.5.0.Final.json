@@ -401,6 +401,10 @@
       "revision" : 1,
       "shard_metadata" : {
         "connector_type" : "source",
+        "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
+        "connector_name" : "mongodb",
+        "connector_version" : "1.5.3.Final",
+        "connector_sha512sum" : "726660c9514107596115a2034e34f6e9691710cbae9c66d0598a99fcf89d78feb8e99e0cd7e492138cbf3f3a570d3f080c29b99e0758542256226b385e243980",
         "operators" : [
           {
             "type" : "debezium-connector-operator",
