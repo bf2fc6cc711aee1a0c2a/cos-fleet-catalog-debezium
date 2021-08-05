@@ -15,10 +15,6 @@ jobs:
     steps:
       - name: Checkout Debezium COS Fleet Catalog
         uses: actions/checkout@v2
-      - name: Login to OpenShift cluster
-        run: oc login --insecure-skip-tls-verify ${{ secrets.K8S_CLUSTER_DEV }} -u ${{ secrets.K8S_CLUSTER_DEV_USER }} -p ${{ secrets.K8S_CLUSTER_DEV_PASSWORD }}
-      
-
       - name: Install OpenShift CLI tools
         uses: redhat-actions/openshift-tools-installer@v1
         with:
@@ -32,9 +28,8 @@ jobs:
         uses: redhat-actions/oc-login@v1
         with:
           openshift_server_url: ${{ secrets.K8S_CLUSTER_DEV }}
-          openshift_username: ${{ secrets.K8S_CLUSTER_DEV_USER }}
-          openshift_password: ${{ secrets.K8S_CLUSTER_DEV_PASSWORD }}
-          insecure_skip_tls_verify: true
+          openshift_token: ${{ secrets.K8S_CLUSTER_DEV_TOKEN }}
+          insecure_skip_tls_verify: false
           namespace: ${{ env.K8S_CLUSTER_DEV_NAMESPACE }}
       - name: Deploy Debezium COS Fleet Catalog ConfigMaps
         run: >
