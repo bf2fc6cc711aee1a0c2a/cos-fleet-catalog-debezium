@@ -405,6 +405,7 @@
         "connector_name" : "mongodb",
         "connector_version" : "1.5.3.Final",
         "connector_sha512sum" : "726660c9514107596115a2034e34f6e9691710cbae9c66d0598a99fcf89d78feb8e99e0cd7e492138cbf3f3a570d3f080c29b99e0758542256226b385e243980",
+        "container_image": "quay.io/asansari/debezium-connector-mongodb@sha256:e60749dfab40213c3d7fd2e90904d1a81431c176e1a16b90fcf887959cd32274",
         "operators" : [
           {
             "type" : "debezium-connector-operator",
