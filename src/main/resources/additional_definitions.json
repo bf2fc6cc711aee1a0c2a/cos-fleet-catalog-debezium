@@ -1,0 +1,7 @@
+{
+  "serializer" : {
+    "type" : "string",
+    "enum" : [ "JSON", "AVRO", "JSON_WITHOUT_SCHEMA" ],
+    "default" : "JSON"
+  }
+}

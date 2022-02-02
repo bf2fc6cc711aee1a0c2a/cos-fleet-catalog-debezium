@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.bf2</groupId>
+  <artifactId>cos-catalog-debezium</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <properties>
+    <debezium.schemabuilder.version>1.9.0-SNAPSHOT</debezium.schemabuilder.version>
+    <debezium.base.version>1.9.0.Alpha1</debezium.base.version>
+    <kafka.version>3.0.0</kafka.version>
+    <descriptor.output.directory>${project.basedir}/descriptors</descriptor.output.directory>
+    <maven.compiler.plugin.version>3.9.0</maven.compiler.plugin.version>
+    <maven.compiler.release>11</maven.compiler.release>
+    <maven.dependency.plugin.version>3.2.0</maven.dependency.plugin.version>
+    <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>sonatype-oss-snapshots</id>
+      <name>Sonatype OSS SNAPSHOT Repository</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <!--// repository in order to enable Debezium SNAPSHOT nightly builds //-->
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.debezium</groupId>
+        <artifactId>debezium-bom</artifactId>
+        <version>${debezium.base.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.debezium</groupId>
+      <artifactId>debezium-schema-generator</artifactId>
+      <version>${debezium.schemabuilder.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.debezium</groupId>
+      <artifactId>debezium-connector-postgres</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.debezium</groupId>
+      <artifactId>debezium-connector-mysql</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.debezium</groupId>
+      <artifactId>debezium-connector-mongodb</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.debezium</groupId>
+      <artifactId>debezium-connector-sqlserver</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>io.debezium</groupId>
+        <artifactId>debezium-schema-generator</artifactId>
+        <version>${debezium.schemabuilder.version}</version>
+        <executions>
+          <execution>
+            <configuration>
+              <format>mcs</format>
+              <outputDirectory>${descriptor.output.directory}</outputDirectory>
+              <groupDirectoryPerConnector>true</groupDirectoryPerConnector>
+              <filenamePrefix>debezium-</filenamePrefix>
+              <filenameSuffix>-${debezium.base.version}</filenameSuffix>
+            </configuration>
+            <id>generate-connector-metadata</id>
+            <goals>
+              <goal>generate-api-spec</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire-plugin.version}</version>
+        <configuration>
+          <systemPropertyVariables>
+            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+            <maven.home>${maven.home}</maven.home>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

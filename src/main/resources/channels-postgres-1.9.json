@@ -1,0 +1,16 @@
+{
+  "stable": {
+    "revision": 2,
+    "shard_metadata": {
+      "operators": [
+        {
+          "type": "debezium-connector-operator",
+          "version": "[1.0.0,2.0.0)"
+        }
+      ],
+      "connector_type": "source",
+      "connector_class": "io.debezium.connector.postgresql.PostgresConnector",
+      "connector_image": "quay.io/rhoas/cos-connector-debezium-postgres@sha256:647bda4aa8bcbd88b8c5a7599e16f4be2087772ece684841f3a4fda3b34b2ae3"
+    }
+  }
+}

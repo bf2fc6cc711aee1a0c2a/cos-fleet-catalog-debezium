@@ -1,0 +1,16 @@
+{
+  "stable": {
+    "revision": 2,
+    "shard_metadata": {
+      "operators": [
+        {
+          "type": "debezium-connector-operator",
+          "version": "[1.0.0,2.0.0)"
+        }
+      ],
+      "connector_type": "source",
+      "connector_class": "io.debezium.connector.mysql.MySqlConnector",
+      "connector_image": "quay.io/rhoas/cos-connector-debezium-mysql@sha256:5964f229a7b73bc589abd88b7c69951f0daf1c8da95288197ba89969039d1978"
+    }
+  }
+}

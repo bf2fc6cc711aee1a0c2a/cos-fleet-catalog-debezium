@@ -1,0 +1,14 @@
+{
+  "data_shape" : {
+    "type" : "object",
+    "additionalProperties" : false,
+    "properties" : {
+      "key" : {
+        "$ref" : "#/$defs/serializer"
+      },
+      "value" : {
+        "$ref" : "#/$defs/serializer"
+      }
+    }
+  }
+}
