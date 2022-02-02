@@ -1,0 +1,16 @@
+{
+  "stable": {
+    "revision": 2,
+    "shard_metadata": {
+      "operators": [
+        {
+          "type": "debezium-connector-operator",
+          "version": "[1.0.0,2.0.0)"
+        }
+      ],
+      "connector_type": "source",
+      "connector_class": "io.debezium.connector.mongodb.MongoDbConnector",
+      "connector_image": "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:73ec82486552010314ba4dfae8d039089a82214ba6a4c37b5004c946d5302e9c"
+    }
+  }
+}

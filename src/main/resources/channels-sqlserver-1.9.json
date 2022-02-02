@@ -1,0 +1,16 @@
+{
+  "stable": {
+    "revision": 0,
+    "shard_metadata": {
+      "operators": [
+        {
+          "type": "debezium-connector-operator",
+          "version": "[1.0.0,2.0.0)"
+        }
+      ],
+      "connector_type": "source",
+      "connector_class": "io.debezium.connector.sqlserver.SqlServerConnector",
+      "connector_image": "quay.io/rhoas/cos-connector-debezium-sqlserver@sha256:XXXXXXXXX"
+    }
+  }
+}

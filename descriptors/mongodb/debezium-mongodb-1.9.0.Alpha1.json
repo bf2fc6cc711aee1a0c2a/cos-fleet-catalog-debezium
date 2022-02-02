@@ -1,16 +1,16 @@
 {
   "connector_type" : {
-    "id" : "debezium-mongodb-1.5.0.Final",
+    "id" : "debezium-mongodb-1.9.0.Alpha1",
     "kind" : "ConnectorType",
-    "href" : "/api/managed-services-api/v1/connector-types/debezium-mongodb-1.5.0.Final",
-    "name" : "debezium-mongodb",
-    "version" : "1.5.0.Final",
-    "title" : "Debezium MongoDB Connector",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-1.9.0.Alpha1",
+    "name" : "Debezium MongoDB Connector",
+    "version" : "1.9.0.Alpha1",
+    "channels" : [ "stable" ],
     "description" : null,
-    "icon_href" : "http://example.com/images/debezium-mongodb-1.5.0.Final.png",
-    "labels": ["source", "debezium", "mongodb", "1.5.0.Final"],
-    "channels" : ["stable"],
-    "json_schema" : {
+    "labels" : [ "source", "debezium", "mongodb", "1.9.0.Alpha1" ],
+    "capabilities" : [ "data_shape" ],
+    "icon_href" : "http://example.com/images/debezium-mongodb-1.9.0.Alpha1.png",
+    "schema" : {
       "title" : "Debezium MongoDB Connector",
       "required" : [ "mongodb.name" ],
       "type" : "object",
@@ -49,20 +49,18 @@
         "mongodb.password" : {
           "title" : "Password",
           "description" : "Password to be used when connecting to MongoDB, if necessary.",
+          "oneOf" : [ {
+            "format" : "password",
+            "description" : "Password of the database user to be used when connecting to the database.",
+            "type" : "string"
+          }, {
+            "description" : "An opaque reference to the password.",
+            "type" : "object",
+            "properties" : { },
+            "additionalProperties" : true
+          } ],
           "x-name" : "mongodb.password",
-          "x-category" : "CONNECTION",
-          "oneOf": [
-            {
-              "type": "string",
-              "format": "password",
-              "description" : "Password to be used when connecting to MongoDB, if necessary."
-            },
-            {
-              "description": "An opaque reference to the password.",
-              "type": "object",
-              "properties": { }
-            }
-          ]
+          "x-category" : "CONNECTION"
         },
         "mongodb.poll.interval.ms" : {
           "format" : "int64",
@@ -238,25 +236,9 @@
           "x-name" : "snapshot.max.threads",
           "x-category" : "CONNECTOR_SNAPSHOT"
         },
-        "+dbz.message.key.format" : {
-          "title" : "Kafka Message Key Format",
-          "description" : "The serialization format for the Kafka message key.",
-          "type" : "string",
-          "enum" : [ "JSON", "JSON without Schema", "AVRO"],
-          "x-name" : "+dbz.message.key.format",
-          "x-category" : "CONNECTOR"
-        },
-        "+dbz.message.value.format" : {
-          "title" : "Kafka Message Value Format",
-          "description" : "The serialization format for the Kafka message value.",
-          "type" : "string",
-          "enum" : [ "JSON", "JSON without Schema", "AVRO"],
-          "x-name" : "+dbz.message.value.format",
-          "x-category" : "CONNECTOR"
-        },
         "tombstones.on.delete" : {
           "title" : "Change the behaviour of Debezium with regards to delete operations",
-          "description" : "Whether delete operations should be represented by a delete event and a subsquent tombstone event (true) or only by a delete event (false). Emitting the tombstone event (the default behavior) allows Kafka to completely delete all events pertaining to the given key once the source record got deleted.",
+          "description" : "Whether delete operations should be represented by a delete event and a subsquenttombstone event (true) or only by a delete event (false). Emitting the tombstone event (the default behavior) allows Kafka to completely delete all events pertaining to the given key once the source record got deleted.",
           "default" : true,
           "type" : "boolean",
           "x-name" : "tombstones.on.delete",
@@ -281,9 +263,18 @@
         },
         "field.renames" : {
           "title" : "Rename Fields",
-          "description" : "",
+          "description" : "A comma-separated list of the fully-qualified replacements of fields that should be used to rename fields in change event message values. Fully-qualified replacements for fields are of the form databaseName.collectionName.fieldName.nestedFieldName:newNestedFieldName, where databaseName and collectionName may contain the wildcard (*) which matches any characters, the colon character (:) is used to determine rename mapping of field.",
           "type" : "string",
           "x-name" : "field.renames",
+          "x-category" : "CONNECTOR_ADVANCED"
+        },
+        "capture.mode" : {
+          "title" : "Capture mode",
+          "description" : "The method used to capture changes from MongoDB server. Options include: 'oplog' to capture changes from the oplog; 'change_streams' to capture changes via MongoDB Change Streams, update events do not contain full documents; 'change_streams_update_full' (the default) to capture changes via MongoDB Change Streams, update events contain full documents",
+          "default" : "change_streams_update_full",
+          "enum" : [ "change_streams", "oplog", "change_streams_update_full" ],
+          "type" : "string",
+          "x-name" : "capture.mode",
           "x-category" : "CONNECTOR_ADVANCED"
         },
         "converters" : {
@@ -312,7 +303,7 @@
         "skipped.operations" : {
           "format" : "list,regex",
           "title" : "skipped Operations",
-          "description" : "The comma-separated list of operations to skip during streaming, defined as: 'c' for inserts/create; 'u' for updates; 'd' for deletes. By default, no operations will be skipped.",
+          "description" : "The comma-separated list of operations to skip during streaming, defined as: 'c' for inserts/create; 'u' for updates; 'd' for deletes, 't' for truncates, and 'none' to indicate nothing skipped. By default, no operations will be skipped.",
           "type" : "string",
           "x-name" : "skipped.operations",
           "x-category" : "ADVANCED"
@@ -388,30 +379,67 @@
           "type" : "string",
           "x-name" : "source.struct.version",
           "x-category" : "ADVANCED"
+        },
+        "signal.data.collection" : {
+          "title" : "Signaling data collection",
+          "description" : "The name of the data collection that is used to send signals/commands to Debezium. Signaling is disabled when not set.",
+          "type" : "string",
+          "x-name" : "signal.data.collection",
+          "x-category" : "ADVANCED"
+        },
+        "transaction.topic" : {
+          "title" : "Transaction topic name",
+          "description" : "The name of the transaction metadata topic. The placeholder ${database.server.name} can be used for referring to the connector's logical name; defaults to ${database.server.name}.transaction.",
+          "default" : "${database.server.name}.transaction",
+          "type" : "string",
+          "x-name" : "transaction.topic",
+          "x-category" : "ADVANCED"
+        },
+        "cursor.max.await.time.ms" : {
+          "format" : "int32",
+          "title" : "Server's oplog streaming cursor max await time",
+          "description" : "The maximum processing time in milliseconds to wait for the oplog cursor to process a single poll request",
+          "type" : "integer",
+          "x-name" : "cursor.max.await.time.ms",
+          "x-category" : "ADVANCED"
         }
       },
       "additionalProperties" : true,
       "x-connector-id" : "mongodb",
-      "x-version" : "1.5.0.Final",
-      "x-className" : "io.debezium.connector.mongodb.MongoDbConnector"
+      "x-version" : "1.9.0.Alpha1",
+      "x-className" : "io.debezium.connector.mongodb.MongoDbConnector",
+      "data_shape" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "key" : {
+            "$ref" : "#/$defs/serializer"
+          },
+          "value" : {
+            "$ref" : "#/$defs/serializer"
+          }
+        }
+      },
+      "$defs" : {
+        "serializer" : {
+          "type" : "string",
+          "enum" : [ "JSON", "AVRO", "JSON_WITHOUT_SCHEMA" ],
+          "default" : "JSON"
+        }
+      }
     }
   },
   "channels" : {
     "stable" : {
-      "revision" : 1,
+      "revision" : 2,
       "shard_metadata" : {
+        "operators" : [ {
+          "type" : "debezium-connector-operator",
+          "version" : "[1.0.0,2.0.0)"
+        } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
-        "connector_name" : "mongodb",
-        "connector_version" : "1.5.3.Final",
-        "connector_sha512sum" : "726660c9514107596115a2034e34f6e9691710cbae9c66d0598a99fcf89d78feb8e99e0cd7e492138cbf3f3a570d3f080c29b99e0758542256226b385e243980",
-        "container_image": "quay.io/asansari/debezium-connector-mongodb@sha256:e60749dfab40213c3d7fd2e90904d1a81431c176e1a16b90fcf887959cd32274",
-        "operators" : [
-          {
-            "type" : "debezium-connector-operator",
-            "version" : "[1.0.0,2.0.0)"
-          }
-        ]
+        "connector_image" : "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:f0f5dc0dd8b4718339bcd3036447ddef1cdd0586f1ff259464b32fe736571883"
       }
     }
   }
