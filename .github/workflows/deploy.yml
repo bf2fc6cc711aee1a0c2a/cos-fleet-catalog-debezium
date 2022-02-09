@@ -36,7 +36,11 @@ jobs:
           cd descriptors/ ;
           for dir in $(ls -d */ | cut -f1 -d'/') ; do
             echo "Deploying ${dir}..." ;
-            oc create configmap "connector-catalog-debezium-${dir}" --from-file=${dir}/ --namespace ${{ secrets.K8S_CLUSTER_DEV_NAMESPACE }} -o yaml --dry-run | oc replace -f - ;
+            if [[ "$dir" == "sqlserver" ]] ; then
+              oc create configmap "connector-catalog-debezium-${dir}" --from-file=${dir}/ --namespace ${{ secrets.K8S_CLUSTER_DEV_NAMESPACE }} -o yaml ;
+            else 
+             oc create configmap "connector-catalog-debezium-${dir}" --from-file=${dir}/ --namespace ${{ secrets.K8S_CLUSTER_DEV_NAMESPACE }} -o yaml --dry-run | oc replace -f - ;
+           fi;
           done
       - name: Restart FleetManager
         run: |
