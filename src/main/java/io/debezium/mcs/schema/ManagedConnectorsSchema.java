@@ -6,6 +6,8 @@
 package io.debezium.mcs.schema;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import io.debezium.schemagenerator.schema.Schema;
@@ -18,6 +20,38 @@ import io.debezium.mcs.envelope.FleetshardCatalogEnvelope;
 
 @SchemaName("mcs")
 public class ManagedConnectorsSchema implements Schema {
+
+    public static final List<String> DEFAULT_INCLUDED_CONFIG_OPTIONS = Arrays.asList(
+            "database.server.name",
+            "database.server.id",
+            "database.hostname",
+            "database.port",
+            "database.user",
+            "database.password",
+            "database.include.list",
+            "database.exclude.list",
+            "table.include.list",
+            "table.exclude.list",
+            "column.include.list",
+            "column.exclude.list",
+            "snapshot.mode",
+            "message.key.columns",
+            "query.fetch.size",
+            "max.batch.size",
+            "max.queue.size",
+            "mongodb.name",
+            "mongodb.hosts",
+            "mongodb.user",
+            "mongodb.password",
+            "collection.include.list",
+            "collection.exclude.list",
+            "field.exclude.list",
+            "database.dbname",
+            "slot.name",
+            "publication.name",
+            "publication.autocreate.mode",
+            "schema.include.list",
+            "schema.exclude.list");
 
     private static final SchemaDescriptor DESCRIPTOR = new SchemaDescriptor() {
         @Override
@@ -68,6 +102,11 @@ public class ManagedConnectorsSchema implements Schema {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public FieldFilter getFieldFilter() {
+        return (field) -> DEFAULT_INCLUDED_CONFIG_OPTIONS.contains(field.name());
     }
 
 }

@@ -25,7 +25,7 @@ public class ConnectorTypesEnvelope {
     private static final String BASE_IMAGES_HREF = "http://example.com/images/";
 
     private static final Schema PASSWORD_SCHEMA_PLAINTEXT = new SchemaImpl();
-    private static final Schema PASSWORD_SCHEMA_REFRENCE = new SchemaImpl();
+    private static final Schema PASSWORD_SCHEMA_REFERENCE = new SchemaImpl();
 
     public final String id;
     public final String kind = "ConnectorType";
@@ -56,10 +56,10 @@ public class ConnectorTypesEnvelope {
         PASSWORD_SCHEMA_PLAINTEXT.format("password");
         PASSWORD_SCHEMA_PLAINTEXT.description("Password of the database user to be used when connecting to the database.");
 
-        PASSWORD_SCHEMA_REFRENCE.type(Schema.SchemaType.OBJECT);
-        PASSWORD_SCHEMA_REFRENCE.properties(new HashMap<>());
-        PASSWORD_SCHEMA_REFRENCE.setAdditionalPropertiesBoolean(true);
-        PASSWORD_SCHEMA_REFRENCE.description("An opaque reference to the password.");
+        PASSWORD_SCHEMA_REFERENCE.type(Schema.SchemaType.OBJECT);
+        PASSWORD_SCHEMA_REFERENCE.properties(new HashMap<>());
+        PASSWORD_SCHEMA_REFERENCE.setAdditionalPropertiesBoolean(true);
+        PASSWORD_SCHEMA_REFERENCE.description("An opaque reference to the password.");
 
         try {
             ADDITIONAL_PROPERTIES = (ObjectNode) OBJECT_MAPPER.readTree(ConnectorTypesEnvelope.class.getClassLoader().getResourceAsStream("additional_properties.json"));
@@ -86,7 +86,7 @@ public class ConnectorTypesEnvelope {
                     && "password".equals(schema.getFormat())) {
                 schema.type(null);
                 schema.format(null);
-                schema.oneOf(Arrays.asList(PASSWORD_SCHEMA_PLAINTEXT, PASSWORD_SCHEMA_REFRENCE));
+                schema.oneOf(Arrays.asList(PASSWORD_SCHEMA_PLAINTEXT, PASSWORD_SCHEMA_REFERENCE));
             }
         });
     }

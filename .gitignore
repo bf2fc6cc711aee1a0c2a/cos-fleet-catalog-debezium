@@ -9,3 +9,5 @@ release.properties
 
 generated-sources/
 *.log
+
+.idea/
