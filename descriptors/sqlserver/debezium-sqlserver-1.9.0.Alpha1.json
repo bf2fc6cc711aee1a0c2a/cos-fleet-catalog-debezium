@@ -112,6 +112,15 @@
           "x-name" : "snapshot.mode",
           "x-category" : "CONNECTOR_SNAPSHOT"
         },
+        "decimal.handling.mode" : {
+          "title" : "Decimal Handling",
+          "description" : "Specify how DECIMAL and NUMERIC columns should be represented in change events, including:'precise' (the default) uses java.math.BigDecimal to represent values, which are encoded in the change events using a binary representation and Kafka Connect's 'org.apache.kafka.connect.data.Decimal' type; 'string' uses string to represent values; 'double' represents values using Java's 'double', which may not offer the precision but will be far easier to use in consumers.",
+          "default" : "precise",
+          "enum" : [ "string", "double", "precise" ],
+          "type" : "string",
+          "x-name" : "decimal.handling.mode",
+          "x-category" : "CONNECTOR"
+        },
         "message.key.columns" : {
           "title" : "Columns PK mapping",
           "description" : "A semicolon-separated list of expressions that match fully-qualified tables and column(s) to be used as message key. Each expression must match the pattern '<fully-qualified table name>:<key columns>',where the table names could be defined as (DB_NAME.TABLE_NAME) or (SCHEMA_NAME.TABLE_NAME), depending on the specific connector,and the key columns are a comma-separated list of columns representing the custom key. For any table without an explicit key configuration the table's primary key column(s) will be used as message key.Example: dbserver1.inventory.orderlines:orderId,orderLineId;dbserver1.inventory.orders:id",

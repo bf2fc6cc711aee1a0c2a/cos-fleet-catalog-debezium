@@ -17,7 +17,7 @@
       "properties" : {
         "mongodb.name" : {
           "title" : "Namespace",
-          "description" : "Unique name that identifies the MongoDB replica set or cluster and all recorded offsets, and that is used as a prefix for all schemas and topics. Each distinct MongoDB installation should have a separate namespace and monitored by at most one Debezium connector.",
+          "description" : "Unique name that identifies the MongoDB replica set or cluster and all recorded offsets, andthat is used as a prefix for all schemas and topics. Each distinct MongoDB installation should have a separate namespace and monitored by at most one Debezium connector.",
           "type" : "string",
           "nullable" : false,
           "x-name" : "mongodb.name",
@@ -53,6 +53,14 @@
           } ],
           "x-name" : "mongodb.password",
           "x-category" : "CONNECTION"
+        },
+        "mongodb.authsource" : {
+          "title" : "Credentials Database",
+          "description" : "Database containing user credentials.",
+          "default" : "admin",
+          "type" : "string",
+          "x-name" : "mongodb.authsource",
+          "x-category" : "CONNECTION_ADVANCED"
         },
         "database.include.list" : {
           "format" : "list,regex",
