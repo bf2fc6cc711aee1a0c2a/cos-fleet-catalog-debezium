@@ -40,7 +40,7 @@ public class ConnectorTypesEnvelope {
 
     public final List<String> labels = new LinkedList<>(Arrays.asList("source", "debezium"));
 
-    public final List<String> capabilities = new ArrayList<>(Collections.singletonList("data_shape"));
+    public final List<String> capabilities = new ArrayList<>(List.of("data_shape", "error_handler"));
 
     @JsonProperty("schema")
     public final ObjectNode jsonSchema;

@@ -8,7 +8,7 @@
     "channels" : [ "stable" ],
     "description" : null,
     "labels" : [ "source", "debezium", "mysql", "1.9.0.Alpha1" ],
-    "capabilities" : [ "data_shape" ],
+    "capabilities" : [ "data_shape", "error_handler" ],
     "icon_href" : "http://example.com/images/debezium-mysql-1.9.0.Alpha1.png",
     "schema" : {
       "title" : "Debezium MySQL Connector",
@@ -192,6 +192,17 @@
               "x-category" : "CONNECTOR",
               "$ref" : "#/$defs/serializer"
             }
+          }
+        },
+        "error_handler" : {
+          "properties" : {
+            "oneOf" : [ {
+              "required" : [ "stop" ],
+              "additionalProperties" : false,
+              "properties" : {
+                "stop" : { }
+              }
+            } ]
           }
         }
       },

@@ -18,5 +18,16 @@
         "$ref" : "#/$defs/serializer"
       }
     }
+  },
+  "error_handler" : {
+    "properties" : {
+      "oneOf" : [ {
+        "required" : [ "stop" ],
+        "additionalProperties" : false,
+        "properties" : {
+          "stop" : { }
+        }
+      } ]
+    }
   }
 }
