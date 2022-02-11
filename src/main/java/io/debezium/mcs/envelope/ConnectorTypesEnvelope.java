@@ -97,7 +97,7 @@ public class ConnectorTypesEnvelope {
         patchSchema(schema);
         SchemaWriter.writeSchema(jsonSchema, schema, schema.getTitle());
         ObjectNode generatedSchema = (ObjectNode) jsonSchema.elements().next();
-        generatedSchema.setAll(ADDITIONAL_PROPERTIES);
+        ((ObjectNode)generatedSchema.get("properties")).setAll(ADDITIONAL_PROPERTIES);
         generatedSchema.set("$defs", ADDITIONAL_DEFINITIONS);
 
         return new ConnectorTypesEnvelope(

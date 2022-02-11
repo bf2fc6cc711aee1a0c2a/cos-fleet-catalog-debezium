@@ -4,9 +4,17 @@
     "additionalProperties" : false,
     "properties" : {
       "key" : {
+        "title" : "Kafka Message Key Format",
+        "description" : "The serialization format for the Kafka message key.",
+        "x-name" : "data_shape.key",
+        "x-category" : "CONNECTOR",
         "$ref" : "#/$defs/serializer"
       },
       "value" : {
+        "title" : "Kafka Message Value Format",
+        "description" : "The serialization format for the Kafka message value.",
+        "x-name" : "data_shape.value",
+        "x-category" : "CONNECTOR",
         "$ref" : "#/$defs/serializer"
       }
     }
