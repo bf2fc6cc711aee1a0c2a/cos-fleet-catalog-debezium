@@ -50,8 +50,6 @@ public class ManagedConnectorsSchema implements Schema {
             "field.exclude.list",
             "database.dbname",
             "slot.name",
-            "slot.stream.params",
-            "interval.handling.mode",
             "publication.name",
             "publication.autocreate.mode",
             "schema.include.list",

@@ -80,13 +80,6 @@
           "x-name" : "slot.name",
           "x-category" : "CONNECTION_ADVANCED_REPLICATION"
         },
-        "slot.stream.params" : {
-          "title" : "Optional parameters to pass to the logical decoder when the stream is started.",
-          "description" : "Any optional parameters used by logical decoding plugin. Semi-colon separated. E.g. 'add-tables=public.table,public.table2;include-lsn=true'",
-          "type" : "string",
-          "x-name" : "slot.stream.params",
-          "x-category" : "CONNECTION_ADVANCED_REPLICATION"
-        },
         "publication.name" : {
           "title" : "Publication",
           "description" : "The name of the Postgres 10+ publication used for streaming changes from a plugin.Defaults to 'dbz_publication'",
@@ -168,15 +161,6 @@
           "enum" : [ "string", "double", "precise" ],
           "type" : "string",
           "x-name" : "decimal.handling.mode",
-          "x-category" : "CONNECTOR"
-        },
-        "interval.handling.mode" : {
-          "title" : "Interval Handling",
-          "description" : "Specify how INTERVAL columns should be represented in change events, including:'string' represents values as an exact ISO formatted string'numeric' (default) represents values using the inexact conversion into microseconds",
-          "default" : "numeric",
-          "enum" : [ "string", "numeric" ],
-          "type" : "string",
-          "x-name" : "interval.handling.mode",
           "x-category" : "CONNECTOR"
         },
         "message.key.columns" : {
