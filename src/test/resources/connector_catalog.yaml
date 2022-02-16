@@ -84,7 +84,7 @@ components:
         - id
         - channel
         - revision
-        - connector_image
+        - container_image
       properties:
         id:
           type: string
@@ -93,7 +93,7 @@ components:
 #### ADDED:
         revision:
           type: string
-        connector_image:
+        container_image:
           type: string
 ####
         shard_metadata:

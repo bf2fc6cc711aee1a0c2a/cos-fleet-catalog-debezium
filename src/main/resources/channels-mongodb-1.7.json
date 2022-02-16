@@ -1,6 +1,6 @@
 {
   "stable": {
-    "revision": 2,
+    "revision": 3,
     "shard_metadata": {
       "operators": [
         {
@@ -10,7 +10,7 @@
       ],
       "connector_type": "source",
       "connector_class": "io.debezium.connector.mongodb.MongoDbConnector",
-      "connector_image": "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:0846fc8e93a2edcff57ff091c6679b32015aa1d8b8dc6c1ee8c97f7d06048f95"
+      "container_image": "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:0846fc8e93a2edcff57ff091c6679b32015aa1d8b8dc6c1ee8c97f7d06048f95"
     }
   }
 }
