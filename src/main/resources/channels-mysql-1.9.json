@@ -1,6 +1,6 @@
 {
   "stable": {
-    "revision": 2,
+    "revision": 3,
     "shard_metadata": {
       "operators": [
         {
@@ -10,7 +10,7 @@
       ],
       "connector_type": "source",
       "connector_class": "io.debezium.connector.mysql.MySqlConnector",
-      "connector_image": "quay.io/rhoas/cos-connector-debezium-mysql@sha256:4637648792deedfe957f4bb09a17c14e00a3ae6f9531376ae7e7a9f54c19d17d"
+      "container_image": "quay.io/rhoas/cos-connector-debezium-mysql@sha256:13c1440e72d644ca7bce7617fa5b388abbaa47b5532cfd7debb75299adaf875e"
     }
   }
 }
