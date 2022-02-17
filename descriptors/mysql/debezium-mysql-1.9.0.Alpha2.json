@@ -1,18 +1,18 @@
 {
   "connector_type" : {
-    "id" : "debezium-sqlserver-1.9.0.Alpha1",
+    "id" : "debezium-mysql-1.9.0.Alpha2",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-sqlserver-1.9.0.Alpha1",
-    "name" : "Debezium SqlSever Connector",
-    "version" : "1.9.0.Alpha1",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-1.9.0.Alpha2",
+    "name" : "Debezium MySQL Connector",
+    "version" : "1.9.0.Alpha2",
     "channels" : [ "stable" ],
     "description" : null,
-    "labels" : [ "source", "debezium", "sqlserver", "1.9.0.Alpha1" ],
+    "labels" : [ "source", "debezium", "mysql", "1.9.0.Alpha2" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-sqlserver-1.9.0.Alpha1.png",
+    "icon_href" : "http://example.com/images/debezium-mysql-1.9.0.Alpha2.png",
     "schema" : {
-      "title" : "Debezium SqlSever Connector",
-      "required" : [ "database.server.name", "database.dbname", "database.hostname" ],
+      "title" : "Debezium MySQL Connector",
+      "required" : [ "database.hostname", "database.user", "database.server.name", "database.server.id" ],
       "type" : "object",
       "properties" : {
         "database.server.name" : {
@@ -21,6 +21,16 @@
           "type" : "string",
           "nullable" : false,
           "x-name" : "database.server.name",
+          "x-category" : "CONNECTION"
+        },
+        "database.server.id" : {
+          "format" : "int64",
+          "title" : "Cluster ID",
+          "description" : "A numeric ID of this database client, which must be unique across all currently-running database processes in the cluster. This connector joins the MySQL database cluster as another server (with this unique ID) so it can read the binlog. By default, a random number is generated between 5400 and 6400.",
+          "default" : 6327,
+          "type" : "integer",
+          "nullable" : false,
+          "x-name" : "database.server.id",
           "x-category" : "CONNECTION"
         },
         "database.hostname" : {
@@ -35,7 +45,7 @@
           "format" : "int32",
           "title" : "Port",
           "description" : "Port of the database server.",
-          "default" : 1433,
+          "default" : 3306,
           "type" : "integer",
           "x-name" : "database.port",
           "x-category" : "CONNECTION"
@@ -44,6 +54,7 @@
           "title" : "User",
           "description" : "Name of the database user to be used when connecting to the database.",
           "type" : "string",
+          "nullable" : false,
           "x-name" : "database.user",
           "x-category" : "CONNECTION"
         },
@@ -63,13 +74,21 @@
           "x-name" : "database.password",
           "x-category" : "CONNECTION"
         },
-        "database.dbname" : {
-          "title" : "Database",
-          "description" : "The name of the database from which the connector should capture changes",
+        "database.include.list" : {
+          "format" : "list,regex",
+          "title" : "Include Databases",
+          "description" : "The databases for which changes are to be captured",
           "type" : "string",
-          "nullable" : false,
-          "x-name" : "database.dbname",
-          "x-category" : "CONNECTION"
+          "x-name" : "database.include.list",
+          "x-category" : "FILTERS"
+        },
+        "database.exclude.list" : {
+          "format" : "list,regex",
+          "title" : "Exclude Databases",
+          "description" : "A comma-separated list of regular expressions that match database names to be excluded from monitoring",
+          "type" : "string",
+          "x-name" : "database.exclude.list",
+          "x-category" : "FILTERS"
         },
         "table.include.list" : {
           "format" : "list,regex",
@@ -105,9 +124,9 @@
         },
         "snapshot.mode" : {
           "title" : "Snapshot mode",
-          "description" : "The criteria for running a snapshot upon startup of the connector. Options include: 'initial' (the default) to specify the connector should run a snapshot only when no offsets are available for the logical server name; 'schema_only' to specify the connector should run a snapshot of the schema when no offsets are available for the logical server name. ",
+          "description" : "The criteria for running a snapshot upon startup of the connector. Options include: 'when_needed' to specify that the connector run a snapshot upon startup whenever it deems it necessary; 'schema_only' to only take a snapshot of the schema (table structures) but no actual data; 'initial' (the default) to specify the connector can run a snapshot only when no offsets are available for the logical server name; 'initial_only' same as 'initial' except the connector should stop after completing the snapshot and before it would normally read the binlog; and'never' to specify the connector should never run a snapshot and that upon first startup the connector should read from the beginning of the binlog. The 'never' mode should be used with care, and only when the binlog is known to contain all history.",
           "default" : "initial",
-          "enum" : [ "initial_only", "initial", "schema_only" ],
+          "enum" : [ "never", "initial_only", "when_needed", "initial", "schema_only", "schema_only_recovery" ],
           "type" : "string",
           "x-name" : "snapshot.mode",
           "x-category" : "CONNECTOR_SNAPSHOT"
@@ -177,9 +196,9 @@
         }
       },
       "additionalProperties" : true,
-      "x-connector-id" : "sqlserver",
-      "x-version" : "1.9.0.Alpha1",
-      "x-className" : "io.debezium.connector.sqlserver.SqlServerConnector",
+      "x-connector-id" : "mysql",
+      "x-version" : "1.9.0.Alpha2",
+      "x-className" : "io.debezium.connector.mysql.MySqlConnector",
       "$defs" : {
         "serializer" : {
           "type" : "string",
@@ -191,15 +210,15 @@
   },
   "channels" : {
     "stable" : {
-      "revision" : 1,
+      "revision" : 4,
       "shard_metadata" : {
         "operators" : [ {
           "type" : "debezium-connector-operator",
           "version" : "[1.0.0,2.0.0)"
         } ],
         "connector_type" : "source",
-        "connector_class" : "io.debezium.connector.sqlserver.SqlServerConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-sqlserver@sha256:036bdfc759e735e1f2dc6f50285b6b4fe6be1202a6dac1c42b182606383f51cd"
+        "connector_class" : "io.debezium.connector.mysql.MySqlConnector",
+        "container_image" : "quay.io/rhoas/cos-connector-debezium-mysql@sha256:7ac245041861abe49e1dbc1fd4b3559aa9c25f5f8a29091839fe8dcb2d6accba"
       }
     }
   }

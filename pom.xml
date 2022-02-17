@@ -9,7 +9,7 @@
 
   <properties>
     <debezium.schemabuilder.version>1.9.0-SNAPSHOT</debezium.schemabuilder.version>
-    <debezium.base.version>1.9.0.Alpha1</debezium.base.version>
+    <debezium.base.version>1.9.0.Alpha2</debezium.base.version>
     <kafka.version>3.0.0</kafka.version>
     <descriptor.output.directory>${project.basedir}/descriptors</descriptor.output.directory>
     <maven.compiler.plugin.version>3.9.0</maven.compiler.plugin.version>

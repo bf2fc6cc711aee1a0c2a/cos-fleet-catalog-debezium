@@ -1,6 +1,6 @@
 {
   "stable": {
-    "revision": 1,
+    "revision": 2,
     "shard_metadata": {
       "operators": [
         {
@@ -10,7 +10,7 @@
       ],
       "connector_type": "source",
       "connector_class": "io.debezium.connector.sqlserver.SqlServerConnector",
-      "container_image": "quay.io/rhoas/cos-connector-debezium-sqlserver@sha256:036bdfc759e735e1f2dc6f50285b6b4fe6be1202a6dac1c42b182606383f51cd"
+      "container_image": "quay.io/rhoas/cos-connector-debezium-sqlserver@sha256:eec3042ae553d8222a9c187c1f71b29dc3e9da7fce2a8256b798c8e395d06c14"
     }
   }
 }

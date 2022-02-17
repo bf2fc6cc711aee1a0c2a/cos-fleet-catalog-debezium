@@ -1,18 +1,18 @@
 {
   "connector_type" : {
-    "id" : "debezium-mysql-1.9.0.Alpha1",
+    "id" : "debezium-postgres-1.9.0.Alpha2",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-1.9.0.Alpha1",
-    "name" : "Debezium MySQL Connector",
-    "version" : "1.9.0.Alpha1",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-postgres-1.9.0.Alpha2",
+    "name" : "Debezium PostgreSQL Connector",
+    "version" : "1.9.0.Alpha2",
     "channels" : [ "stable" ],
     "description" : null,
-    "labels" : [ "source", "debezium", "mysql", "1.9.0.Alpha1" ],
+    "labels" : [ "source", "debezium", "postgres", "1.9.0.Alpha2" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-mysql-1.9.0.Alpha1.png",
+    "icon_href" : "http://example.com/images/debezium-postgres-1.9.0.Alpha2.png",
     "schema" : {
-      "title" : "Debezium MySQL Connector",
-      "required" : [ "database.hostname", "database.user", "database.server.name", "database.server.id" ],
+      "title" : "Debezium PostgreSQL Connector",
+      "required" : [ "database.server.name", "database.hostname", "database.user", "database.dbname" ],
       "type" : "object",
       "properties" : {
         "database.server.name" : {
@@ -21,16 +21,6 @@
           "type" : "string",
           "nullable" : false,
           "x-name" : "database.server.name",
-          "x-category" : "CONNECTION"
-        },
-        "database.server.id" : {
-          "format" : "int64",
-          "title" : "Cluster ID",
-          "description" : "A numeric ID of this database client, which must be unique across all currently-running database processes in the cluster. This connector joins the MySQL database cluster as another server (with this unique ID) so it can read the binlog. By default, a random number is generated between 5400 and 6400.",
-          "default" : 5405,
-          "type" : "integer",
-          "nullable" : false,
-          "x-name" : "database.server.id",
           "x-category" : "CONNECTION"
         },
         "database.hostname" : {
@@ -45,7 +35,7 @@
           "format" : "int32",
           "title" : "Port",
           "description" : "Port of the database server.",
-          "default" : 3306,
+          "default" : 5432,
           "type" : "integer",
           "x-name" : "database.port",
           "x-category" : "CONNECTION"
@@ -74,20 +64,53 @@
           "x-name" : "database.password",
           "x-category" : "CONNECTION"
         },
-        "database.include.list" : {
-          "format" : "list,regex",
-          "title" : "Include Databases",
-          "description" : "The databases for which changes are to be captured",
+        "database.dbname" : {
+          "title" : "Database",
+          "description" : "The name of the database from which the connector should capture changes",
           "type" : "string",
-          "x-name" : "database.include.list",
+          "nullable" : false,
+          "x-name" : "database.dbname",
+          "x-category" : "CONNECTION"
+        },
+        "slot.name" : {
+          "title" : "Slot",
+          "description" : "The name of the Postgres logical decoding slot created for streaming changes from a plugin.Defaults to 'debezium",
+          "default" : "debezium",
+          "type" : "string",
+          "x-name" : "slot.name",
+          "x-category" : "CONNECTION_ADVANCED_REPLICATION"
+        },
+        "publication.name" : {
+          "title" : "Publication",
+          "description" : "The name of the Postgres 10+ publication used for streaming changes from a plugin.Defaults to 'dbz_publication'",
+          "default" : "dbz_publication",
+          "type" : "string",
+          "x-name" : "publication.name",
+          "x-category" : "CONNECTION_ADVANCED_REPLICATION"
+        },
+        "publication.autocreate.mode" : {
+          "title" : "Publication Auto Create Mode",
+          "description" : "Applies only when streaming changes using pgoutput.Determine how creation of a publication should work, the default is all_tables.DISABLED - The connector will not attempt to create a publication at all. The expectation is that the user has created the publication up-front. If the publication isn't found to exist upon startup, the connector will throw an exception and stop.ALL_TABLES - If no publication exists, the connector will create a new publication for all tables. Note this requires that the configured user has access. If the publication already exists, it will be used. i.e CREATE PUBLICATION <publication_name> FOR ALL TABLES;FILTERED - If no publication exists, the connector will create a new publication for all those tables matchingthe current filter configuration (see table/database include/exclude list properties). If the publication already exists, it will be used. i.e CREATE PUBLICATION <publication_name> FOR TABLE <tbl1, tbl2, etc>",
+          "default" : "all_tables",
+          "enum" : [ "filtered", "disabled", "all_tables" ],
+          "type" : "string",
+          "x-name" : "publication.autocreate.mode",
+          "x-category" : "CONNECTION_ADVANCED_REPLICATION"
+        },
+        "schema.include.list" : {
+          "format" : "list,regex",
+          "title" : "Include Schemas",
+          "description" : "The schemas for which events should be captured",
+          "type" : "string",
+          "x-name" : "schema.include.list",
           "x-category" : "FILTERS"
         },
-        "database.exclude.list" : {
+        "schema.exclude.list" : {
           "format" : "list,regex",
-          "title" : "Exclude Databases",
-          "description" : "A comma-separated list of regular expressions that match database names to be excluded from monitoring",
+          "title" : "Exclude Schemas",
+          "description" : "The schemas for which events must not be captured",
           "type" : "string",
-          "x-name" : "database.exclude.list",
+          "x-name" : "schema.exclude.list",
           "x-category" : "FILTERS"
         },
         "table.include.list" : {
@@ -124,9 +147,9 @@
         },
         "snapshot.mode" : {
           "title" : "Snapshot mode",
-          "description" : "The criteria for running a snapshot upon startup of the connector. Options include: 'when_needed' to specify that the connector run a snapshot upon startup whenever it deems it necessary; 'schema_only' to only take a snapshot of the schema (table structures) but no actual data; 'initial' (the default) to specify the connector can run a snapshot only when no offsets are available for the logical server name; 'initial_only' same as 'initial' except the connector should stop after completing the snapshot and before it would normally read the binlog; and'never' to specify the connector should never run a snapshot and that upon first startup the connector should read from the beginning of the binlog. The 'never' mode should be used with care, and only when the binlog is known to contain all history.",
+          "description" : "The criteria for running a snapshot upon startup of the connector. Options include: 'always' to specify that the connector run a snapshot each time it starts up; 'initial' (the default) to specify the connector can run a snapshot only when no offsets are available for the logical server name; 'initial_only' same as 'initial' except the connector should stop after completing the snapshot and before it would normally start emitting changes;'never' to specify the connector should never run a snapshot and that upon first startup the connector should read from the last position (LSN) recorded by the server; and'exported' deprecated, use 'initial' instead; 'custom' to specify a custom class with 'snapshot.custom_class' which will be loaded and used to determine the snapshot, see docs for more details.",
           "default" : "initial",
-          "enum" : [ "never", "initial_only", "when_needed", "initial", "schema_only", "schema_only_recovery" ],
+          "enum" : [ "always", "exported", "never", "initial_only", "initial", "custom" ],
           "type" : "string",
           "x-name" : "snapshot.mode",
           "x-category" : "CONNECTOR_SNAPSHOT"
@@ -196,9 +219,9 @@
         }
       },
       "additionalProperties" : true,
-      "x-connector-id" : "mysql",
-      "x-version" : "1.9.0.Alpha1",
-      "x-className" : "io.debezium.connector.mysql.MySqlConnector",
+      "x-connector-id" : "postgres",
+      "x-version" : "1.9.0.Alpha2",
+      "x-className" : "io.debezium.connector.postgresql.PostgresConnector",
       "$defs" : {
         "serializer" : {
           "type" : "string",
@@ -210,15 +233,15 @@
   },
   "channels" : {
     "stable" : {
-      "revision" : 3,
+      "revision" : 4,
       "shard_metadata" : {
         "operators" : [ {
           "type" : "debezium-connector-operator",
           "version" : "[1.0.0,2.0.0)"
         } ],
         "connector_type" : "source",
-        "connector_class" : "io.debezium.connector.mysql.MySqlConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-mysql@sha256:13c1440e72d644ca7bce7617fa5b388abbaa47b5532cfd7debb75299adaf875e"
+        "connector_class" : "io.debezium.connector.postgresql.PostgresConnector",
+        "container_image" : "quay.io/rhoas/cos-connector-debezium-postgres@sha256:b67d0ef4d4638bd5b6e71e2ccc30d5f7d5f74738db94dae53504077de7df5cff"
       }
     }
   }
