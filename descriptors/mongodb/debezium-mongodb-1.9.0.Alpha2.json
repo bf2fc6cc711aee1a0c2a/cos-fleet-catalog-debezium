@@ -1,15 +1,15 @@
 {
   "connector_type" : {
-    "id" : "debezium-mongodb-1.9.0.Alpha1",
+    "id" : "debezium-mongodb-1.9.0.Alpha2",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-1.9.0.Alpha1",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-1.9.0.Alpha2",
     "name" : "Debezium MongoDB Connector",
-    "version" : "1.9.0.Alpha1",
+    "version" : "1.9.0.Alpha2",
     "channels" : [ "stable" ],
     "description" : null,
-    "labels" : [ "source", "debezium", "mongodb", "1.9.0.Alpha1" ],
+    "labels" : [ "source", "debezium", "mongodb", "1.9.0.Alpha2" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-mongodb-1.9.0.Alpha1.png",
+    "icon_href" : "http://example.com/images/debezium-mongodb-1.9.0.Alpha2.png",
     "schema" : {
       "title" : "Debezium MongoDB Connector",
       "required" : [ "mongodb.name" ],
@@ -17,7 +17,7 @@
       "properties" : {
         "mongodb.name" : {
           "title" : "Namespace",
-          "description" : "Unique name that identifies the MongoDB replica set or cluster and all recorded offsets, andthat is used as a prefix for all schemas and topics. Each distinct MongoDB installation should have a separate namespace and monitored by at most one Debezium connector.",
+          "description" : "Unique name that identifies the MongoDB replica set or cluster and all recorded offsets, and that is used as a prefix for all schemas and topics. Each distinct MongoDB installation should have a separate namespace and monitored by at most one Debezium connector.",
           "type" : "string",
           "nullable" : false,
           "x-name" : "mongodb.name",
@@ -158,7 +158,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "mongodb",
-      "x-version" : "1.9.0.Alpha1",
+      "x-version" : "1.9.0.Alpha2",
       "x-className" : "io.debezium.connector.mongodb.MongoDbConnector",
       "$defs" : {
         "serializer" : {
@@ -171,7 +171,7 @@
   },
   "channels" : {
     "stable" : {
-      "revision" : 3,
+      "revision" : 4,
       "shard_metadata" : {
         "operators" : [ {
           "type" : "debezium-connector-operator",
@@ -179,7 +179,7 @@
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:7bcb62e2aa02ef100c86ee2697069e435f8365469d7e3df9126731909b83d016"
+        "container_image" : "quay.io/rhoas/cos-connector-debezium-mongodb:nightly"
       }
     }
   }
