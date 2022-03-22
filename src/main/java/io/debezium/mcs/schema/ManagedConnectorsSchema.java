@@ -45,6 +45,7 @@ public class ManagedConnectorsSchema implements Schema {
             "mongodb.user",
             "mongodb.password",
             "mongodb.authsource",
+            "mongodb.ssl.enabled",
             "collection.include.list",
             "collection.exclude.list",
             "field.exclude.list",
