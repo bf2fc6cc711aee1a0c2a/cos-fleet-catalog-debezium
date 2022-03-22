@@ -225,7 +225,7 @@
       "$defs" : {
         "serializer" : {
           "type" : "string",
-          "enum" : [ "JSON", "AVRO", "JSON_WITHOUT_SCHEMA" ],
+          "enum" : [ "JSON", "AVRO", "JSON without schema" ],
           "default" : "JSON"
         }
       }
