@@ -6,7 +6,10 @@ on:
       - main
     paths:
       - 'src/**'
+      - 'descriptors/**'
+      - 'templates/**'
       - '.github/workflows/deploy.yml'
+  workflow_dispatch:
 
 jobs:
   build:
