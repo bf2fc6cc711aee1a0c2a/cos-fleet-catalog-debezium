@@ -18,5 +18,266 @@
         "$ref" : "#/$defs/serializer"
       }
     }
+  },
+  "processors" : {
+    "type" : "array",
+    "items" : {
+      "oneOf" : [
+        {
+          "type" : "object",
+          "required" : [ "cast_field" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "cast_field" : {
+              "additionalProperties" : false,
+              "required" : [ "apply_to", "spec"],
+              "properties" : {
+                "apply_to" : {
+                  "$ref" : "#/$defs/apply_to"
+                },
+                "spec" : {
+                  "type" : "array",
+                  "items" : {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type" : "object",
+          "required" : [ "insert_field" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "insert_field" : {
+              "additionalProperties" : false,
+              "required" : [ "apply_to", "field", "value" ],
+              "properties" : {
+                "apply_to" : {
+                  "$ref" : "#/$defs/apply_to"
+                },
+                "field" : {
+                  "type" : "string"
+                },
+                "value" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type" : "object",
+          "required" : [ "extract_field" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "extract_field" : {
+              "additionalProperties" : false,
+              "required" : [ "apply_to", "field" ],
+              "properties" : {
+                "apply_to" : {
+                  "$ref" : "#/$defs/apply_to"
+                },
+                "field" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type" : "object",
+          "required" : [ "mask_field" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "mask_field" : {
+              "additionalProperties" : false,
+              "required" : [ "apply_to", "field" ],
+              "properties" : {
+                "apply_to" : {
+                  "$ref" : "#/$defs/apply_to"
+                },
+                "field" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type" : "object",
+          "required" : [ "replace_field" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "replace_field" : {
+              "additionalProperties" : false,
+              "required" : [ "apply_to", "whitelist", "blacklist", "renames" ],
+              "properties" : {
+                "apply_to" : {
+                  "$ref" : "#/$defs/apply_to"
+                },
+                "whitelist" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                },
+                "blacklist" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                },
+                "renames" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type" : "object",
+          "required" : [ "set_schema_metadata" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "set_schema_metadata" : {
+              "additionalProperties" : false,
+              "required" : [ "apply_to", "name", "version" ],
+              "properties" : {
+                "apply_to" : {
+                  "$ref" : "#/$defs/apply_to"
+                },
+                "name" : {
+                  "type" : "string",
+                  "default" : null
+                },
+                "version" : {
+                  "type" : "integer",
+                  "default" : null
+                }
+              }
+            }
+          }
+        },
+        {
+          "type" : "object",
+          "required" : [ "tombstone_handling" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "tombstone_handling" : {
+              "additionalProperties" : false,
+              "required" : [ "behaviour" ],
+              "properties" : {
+                "behaviour" : {
+                  "type" : "string",
+                  "default" : "warn",
+                  "enum" : [ "warn", "ignore", "fail" ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "type" : "object",
+          "required" : [ "value_to_key" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "value_to_key" : {
+              "additionalProperties" : false,
+              "required" : [ "fields" ],
+              "properties" : {
+                "fields" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [ "topic_routing" ],
+          "additionalProperties": false,
+          "properties": {
+            "topic_routing": {
+              "additionalProperties": false,
+              "required": [ "topic_regex", "topic_replacement", "key_enforce_uniqueness", "key_field_name", "key_field_regex", "key_field_replacement" ],
+              "properties": {
+                "topic_regex": {
+                  "type": "string"
+                },
+                "topic_replacement": {
+                  "type": "string"
+                },
+                "key_enforce_uniqueness": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "key_field_name": {
+                  "type": "string"
+                },
+                "key_field_regex": {
+                  "type": "string"
+                },
+                "key_field_replacement": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type" : "object",
+          "required" : [ "record_state_extraction" ],
+          "additionalProperties" : false,
+          "properties" : {
+            "record_state_extraction" : {
+              "additionalProperties" : false,
+              "required" : [ "drop_tombstones", "delete_handling_mode", "add_fields_prefix", "add_fields", "add_headers_prefix", "add_headers" ],
+              "properties" : {
+                "drop_tombstones" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "delete_handling_mode" : {
+                  "type" : "string",
+                  "default" : "drop",
+                  "enum" : [ "none", "drop", "rewrite" ]
+                },
+                "add_fields_prefix" : {
+                  "type" : "string",
+                  "default" : "__"
+                },
+                "add_fields" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                },
+                "add_headers_prefix" : {
+                  "type" : "string",
+                  "default" : "__"
+                },
+                "add_headers" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
   }
 }

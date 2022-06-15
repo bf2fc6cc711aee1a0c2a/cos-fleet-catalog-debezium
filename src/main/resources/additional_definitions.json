@@ -3,5 +3,9 @@
     "type" : "string",
     "enum" : [ "JSON", "JSON without schema" ],
     "default" : "JSON"
+  },
+  "apply_to": {
+    "type" : "string",
+    "enum" : [ "key", "value" ]
   }
 }
