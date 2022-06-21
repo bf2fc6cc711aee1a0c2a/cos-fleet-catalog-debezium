@@ -1,0 +1,8 @@
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.5
+
+COPY descriptors /etc/connectors
+
+LABEL name="cos-fleet-catalog-debezium" \
+      vendor="Red Hat" \
+      summary="CosFleetCatalogDebezium" \
+      description="Kafka Connector Service Catalog Debezium"

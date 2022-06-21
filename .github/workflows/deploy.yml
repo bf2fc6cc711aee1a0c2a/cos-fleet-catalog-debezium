@@ -43,4 +43,46 @@ jobs:
           done
       - name: Restart FleetManager
         run: |
-          oc rollout restart deployment/cos-fleet-manager --namespace ${{ secrets.K8S_CLUSTER_DEV_NAMESPACE }}
+          oc rollout restart deployment/cos-fleet-manager --namespace ${{ secrets.K8S_CLUSTER_DEV_NAMESPACE }}  
+
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2        
+      - name: Set versions
+        run: |
+          export C_VERSION="${GITHUB_REF_NAME#v}" 
+          export C_REVISION="${GITHUB_SHA}" 
+          
+          echo "CONNECTORS_VERSION=${C_VERSION}" >> $GITHUB_ENV
+          echo "CONNECTORS_REVISION=${C_REVISION}" >> $GITHUB_ENV
+          echo "CONNECTORS_RELEASE=${C_VERSION}-${C_REVISION}" >> $GITHUB_ENV
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_MCI_USR }}
+          password: ${{ secrets.QUAY_MCI_PWD }}
+
+      - name: Build Catalog Image
+        run: |
+          docker build \
+            -t "quay.io/rhoas/cos-fleet-catalog-debezium:${CONNECTORS_RELEASE}" \
+            -t "quay.io/rhoas/cos-fleet-catalog-debezium:latest" \
+            -f Dockerfile.catalog .
+
+      - name: Push Container Images
+        run: |
+          docker push "quay.io/rhoas/cos-fleet-catalog-debezium:${CONNECTORS_RELEASE}"
+          docker push "quay.io/rhoas/cos-fleet-catalog-debezium:latest"
+
+  update-manifest:
+    needs:
+      - catalog
+    uses: ./.github/workflows/update-manifest.yaml
+    with:
+      overlay: "dev"
+    secrets:
+      token: ${{ secrets.GH_TOKEN }}
