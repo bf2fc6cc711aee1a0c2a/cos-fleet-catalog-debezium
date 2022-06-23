@@ -81,7 +81,7 @@ jobs:
   update-manifest:
     needs:
       - catalog
-    uses: ./.github/workflows/update-manifest.yaml
+    uses: ./.github/workflows/update-manifest.yml
     with:
       overlay: "dev"
     secrets:
