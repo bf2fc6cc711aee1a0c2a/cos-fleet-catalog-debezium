@@ -10,7 +10,7 @@
       ],
       "connector_type": "source",
       "connector_class": "io.debezium.connector.mongodb.MongoDbConnector",
-      "container_image": "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:d762988cad64037ded02183d4a86c8bb6af35dfd6e04e282d86210ec05536425"
+      "container_image": "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:6827b643af8fc539b509dd92d1904e643671e01ac06589050786e416a17023d8"
     }
   }
 }

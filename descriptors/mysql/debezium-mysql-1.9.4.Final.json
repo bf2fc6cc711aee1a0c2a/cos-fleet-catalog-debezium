@@ -1,15 +1,15 @@
 {
   "connector_type" : {
-    "id" : "debezium-mysql-1.9.3.Final",
+    "id" : "debezium-mysql-1.9.4.Final",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-1.9.3.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-1.9.4.Final",
     "name" : "Debezium MySQL Connector",
-    "version" : "1.9.3.Final",
+    "version" : "1.9.4.Final",
     "channels" : [ "stable" ],
     "description" : null,
-    "labels" : [ "source", "debezium", "mysql", "1.9.3.Final" ],
+    "labels" : [ "source", "debezium", "mysql", "1.9.4.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-mysql-1.9.3.Final.png",
+    "icon_href" : "http://example.com/images/debezium-mysql-1.9.4.Final.png",
     "schema" : {
       "title" : "Debezium MySQL Connector",
       "required" : [ "database.hostname", "database.user", "database.server.name", "database.server.id" ],
@@ -196,7 +196,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "mysql",
-      "x-version" : "1.9.3.Final",
+      "x-version" : "1.9.4.Final",
       "x-className" : "io.debezium.connector.mysql.MySqlConnector",
       "$defs" : {
         "serializer" : {
@@ -217,7 +217,7 @@
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.mysql.MySqlConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-mysql@sha256:f2c51bab96c378f0142c6770103fce8cd1bc35e7570696a98717275ef9d0fdb0"
+        "container_image" : "quay.io/rhoas/cos-connector-debezium-mysql@sha256:da3ba6d1b56f13b743d0200258901ac62973c6c2402854a8c5a442f7179818bd"
       }
     }
   }

@@ -10,7 +10,7 @@
       ],
       "connector_type": "source",
       "connector_class": "io.debezium.connector.mysql.MySqlConnector",
-      "container_image": "quay.io/rhoas/cos-connector-debezium-mysql@sha256:7ac245041861abe49e1dbc1fd4b3559aa9c25f5f8a29091839fe8dcb2d6accba"
+      "container_image": "quay.io/rhoas/cos-connector-debezium-mysql@sha256:da3ba6d1b56f13b743d0200258901ac62973c6c2402854a8c5a442f7179818bd"
     }
   }
 }
