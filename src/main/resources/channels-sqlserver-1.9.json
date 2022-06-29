@@ -1,7 +1,7 @@
 {
   "stable": {
-    "revision": 2,
     "shard_metadata": {
+      "connector_revision": 1,
       "operators": [
         {
           "type": "debezium-connector-operator",
