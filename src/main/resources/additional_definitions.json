@@ -3,5 +3,27 @@
     "type" : "string",
     "enum" : [ "JSON", "JSON without schema" ],
     "default" : "JSON"
+  },
+  "apply_to": {
+    "type" : "string",
+    "enum" : [ "message key", "message value" ]
+  },
+  "include_list": {
+    "type" : "array",
+    "items" : {
+      "type" : "string"
+    }
+  },
+  "exclude_list" : {
+    "type" : "array",
+    "items" : {
+      "type" : "string"
+    }
+  },
+  "renaming" : {
+    "type" : "array",
+    "items" : {
+      "type" : "string"
+    }
   }
 }
