@@ -6,6 +6,24 @@
   },
   "apply_to": {
     "type" : "string",
-    "enum" : [ "key", "value" ]
+    "enum" : [ "message key", "message value" ]
+  },
+  "include_list": {
+    "type" : "array",
+    "items" : {
+      "type" : "string"
+    }
+  },
+  "exclude_list" : {
+    "type" : "array",
+    "items" : {
+      "type" : "string"
+    }
+  },
+  "renaming" : {
+    "type" : "array",
+    "items" : {
+      "type" : "string"
+    }
   }
 }

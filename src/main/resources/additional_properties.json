@@ -113,72 +113,26 @@
           "required" : [ "replace_field" ],
           "additionalProperties" : false,
           "properties" : {
-            "replace_field" : {
-              "additionalProperties" : false,
-              "required" : [ "apply_to", "whitelist", "blacklist", "renames" ],
-              "properties" : {
-                "apply_to" : {
-                  "$ref" : "#/$defs/apply_to"
+            "replace_field": {
+              "additionalProperties": false,
+              "required": [
+                "apply_to",
+                "include_list",
+                "exclude_list",
+                "renaming"
+              ],
+              "properties": {
+                "apply_to": {
+                  "$ref": "#/$defs/apply_to"
                 },
-                "whitelist" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "string"
-                  }
+                "include_list": {
+                  "$ref": "#/$defs/include_list"
                 },
-                "blacklist" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "string"
-                  }
+                "exclude_list": {
+                  "$ref": "#/$defs/exclude_list"
                 },
-                "renames" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "type" : "object",
-          "required" : [ "set_schema_metadata" ],
-          "additionalProperties" : false,
-          "properties" : {
-            "set_schema_metadata" : {
-              "additionalProperties" : false,
-              "required" : [ "apply_to", "name", "version" ],
-              "properties" : {
-                "apply_to" : {
-                  "$ref" : "#/$defs/apply_to"
-                },
-                "name" : {
-                  "type" : "string",
-                  "default" : null
-                },
-                "version" : {
-                  "type" : "integer",
-                  "default" : null
-                }
-              }
-            }
-          }
-        },
-        {
-          "type" : "object",
-          "required" : [ "tombstone_handling" ],
-          "additionalProperties" : false,
-          "properties" : {
-            "tombstone_handling" : {
-              "additionalProperties" : false,
-              "required" : [ "behaviour" ],
-              "properties" : {
-                "behaviour" : {
-                  "type" : "string",
-                  "default" : "warn",
-                  "enum" : [ "warn", "ignore", "fail" ]
+                "renaming": {
+                  "$ref": "#/$defs/renaming"
                 }
               }
             }
@@ -209,27 +163,32 @@
           "additionalProperties": false,
           "properties": {
             "topic_routing": {
-              "additionalProperties": false,
-              "required": [ "topic_regex", "topic_replacement", "key_enforce_uniqueness", "key_field_name", "key_field_regex", "key_field_replacement" ],
+              "additionalProperties": [ "key_enforce_uniqueness", "key_field_name"],
+              "required": [ "topic_names", "topic_replacement", "key_field_regex", "key_field_replacement" ],
               "properties": {
-                "topic_regex": {
-                  "type": "string"
+                "topic_names": {
+                  "type": "string",
+                  "format": "regex"
                 },
                 "topic_replacement": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "regex"
                 },
                 "key_enforce_uniqueness": {
                   "type": "boolean",
                   "default": true
                 },
                 "key_field_name": {
-                  "type": "string"
+                  "type": "string",
+                  "default": "__dbz__physicalTableIdentifier"
                 },
                 "key_field_regex": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "regex"
                 },
                 "key_field_replacement": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "regex"
                 }
               }
             }
@@ -241,8 +200,8 @@
           "additionalProperties" : false,
           "properties" : {
             "record_state_extraction" : {
-              "additionalProperties" : false,
-              "required" : [ "drop_tombstones", "delete_handling_mode", "add_fields_prefix", "add_fields", "add_headers_prefix", "add_headers" ],
+              "additionalProperties" : [ "drop_tombstones", "delete_handling_mode" ],
+              "required" : [ "add_fields_prefix", "add_fields", "add_headers_prefix", "add_headers" ],
               "properties" : {
                 "drop_tombstones" : {
                   "type" : "boolean",
