@@ -85,4 +85,4 @@ jobs:
     with:
       overlay: "dev"
     secrets:
-      token: ${{ secrets.GH_TOKEN }}
+      token: ${{ secrets.PR_TOKEN }}
