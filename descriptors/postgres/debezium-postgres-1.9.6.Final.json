@@ -1,15 +1,15 @@
 {
   "connector_type" : {
-    "id" : "debezium-postgres-1.9.4.Final",
+    "id" : "debezium-postgres-1.9.6.Final",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-postgres-1.9.4.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-postgres-1.9.6.Final",
     "name" : "Debezium PostgreSQL Connector",
-    "version" : "1.9.4.Final",
+    "version" : "1.9.6.Final",
     "channels" : [ "stable" ],
     "description" : null,
-    "labels" : [ "source", "debezium", "postgres", "1.9.4.Final" ],
+    "labels" : [ "source", "debezium", "postgres", "1.9.6.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-postgres-1.9.4.Final.png",
+    "icon_href" : "http://example.com/images/debezium-postgres-1.9.6.Final.png",
     "schema" : {
       "title" : "Debezium PostgreSQL Connector",
       "required" : [ "database.server.name", "database.hostname", "database.user", "database.dbname" ],
@@ -220,7 +220,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "postgres",
-      "x-version" : "1.9.4.Final",
+      "x-version" : "1.9.6.Final",
       "x-className" : "io.debezium.connector.postgresql.PostgresConnector",
       "$defs" : {
         "serializer" : {
@@ -241,7 +241,7 @@
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.postgresql.PostgresConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-postgres@sha256:d64ee218a912c27b06350290fad003acf196b7739c5a3ba16426a3cdef0b21f2"
+        "container_image" : "quay.io/rhoas/cos-connector-debezium-postgres@sha256:f99d7ba9b3c15a1d4fedfaa57874a3922e730af41c7cbd4508b50b4164b1139f"
       }
     }
   }
