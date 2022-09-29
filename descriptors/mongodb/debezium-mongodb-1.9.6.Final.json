@@ -1,15 +1,15 @@
 {
   "connector_type" : {
-    "id" : "debezium-mongodb-1.9.4.Final",
+    "id" : "debezium-mongodb-1.9.6.Final",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-1.9.4.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-1.9.6.Final",
     "name" : "Debezium MongoDB Connector",
-    "version" : "1.9.4.Final",
+    "version" : "1.9.6.Final",
     "channels" : [ "stable" ],
     "description" : null,
-    "labels" : [ "source", "debezium", "mongodb", "1.9.4.Final" ],
+    "labels" : [ "source", "debezium", "mongodb", "1.9.6.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-mongodb-1.9.4.Final.png",
+    "icon_href" : "http://example.com/images/debezium-mongodb-1.9.6.Final.png",
     "schema" : {
       "title" : "Debezium MongoDB Connector",
       "required" : [ "mongodb.name" ],
@@ -166,7 +166,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "mongodb",
-      "x-version" : "1.9.4.Final",
+      "x-version" : "1.9.6.Final",
       "x-className" : "io.debezium.connector.mongodb.MongoDbConnector",
       "$defs" : {
         "serializer" : {
@@ -187,7 +187,7 @@
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:6827b643af8fc539b509dd92d1904e643671e01ac06589050786e416a17023d8"
+        "container_image" : "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:896e3093e647bd9985b8a9fe1ea64009fd77890b89417501ffada7af00cbd394"
       }
     }
   }
