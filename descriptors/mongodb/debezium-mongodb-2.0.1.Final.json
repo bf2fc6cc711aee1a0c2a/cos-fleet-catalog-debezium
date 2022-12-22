@@ -1,0 +1,185 @@
+{
+  "connector_type" : {
+    "id" : "debezium-mongodb-2.0.1.Final",
+    "kind" : "ConnectorType",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-2.0.1.Final",
+    "name" : "Debezium MongoDB Connector",
+    "version" : "2.0.1.Final",
+    "channels" : [ "stable" ],
+    "description" : null,
+    "labels" : [ "source", "debezium", "mongodb", "2.0.1.Final" ],
+    "capabilities" : [ "data_shape" ],
+    "icon_href" : "http://example.com/images/debezium-mongodb-2.0.1.Final.png",
+    "schema" : {
+      "title" : "Debezium MongoDB Connector",
+      "type" : "object",
+      "properties" : {
+        "mongodb.hosts" : {
+          "format" : "list,regex",
+          "title" : "Hosts",
+          "description" : "The hostname and port pairs (in the form 'host' or 'host:port') of the MongoDB server(s) in the replica set.",
+          "type" : "string",
+          "x-name" : "mongodb.hosts",
+          "x-category" : "CONNECTION"
+        },
+        "mongodb.user" : {
+          "title" : "User",
+          "description" : "Database user for connecting to MongoDB, if necessary.",
+          "type" : "string",
+          "x-name" : "mongodb.user",
+          "x-category" : "CONNECTION"
+        },
+        "mongodb.password" : {
+          "title" : "Password",
+          "description" : "Password to be used when connecting to MongoDB, if necessary.",
+          "oneOf" : [ {
+            "format" : "password",
+            "description" : "Password of the database user to be used when connecting to the database.",
+            "type" : "string"
+          }, {
+            "description" : "An opaque reference to the password.",
+            "type" : "object",
+            "properties" : { },
+            "additionalProperties" : true
+          } ],
+          "x-name" : "mongodb.password",
+          "x-category" : "CONNECTION"
+        },
+        "mongodb.ssl.enabled" : {
+          "title" : "Enable SSL connection to MongoDB",
+          "description" : "Should connector use SSL to connect to MongoDB instances",
+          "default" : false,
+          "type" : "boolean",
+          "x-name" : "mongodb.ssl.enabled",
+          "x-category" : "CONNECTION_ADVANCED_SSL"
+        },
+        "mongodb.authsource" : {
+          "title" : "Credentials Database",
+          "description" : "Database containing user credentials.",
+          "default" : "admin",
+          "type" : "string",
+          "x-name" : "mongodb.authsource",
+          "x-category" : "CONNECTION_ADVANCED"
+        },
+        "database.include.list" : {
+          "format" : "list,regex",
+          "title" : "Include Databases",
+          "description" : "A comma-separated list of regular expressions that match the database names for which changes are to be captured",
+          "type" : "string",
+          "x-name" : "database.include.list",
+          "x-category" : "FILTERS"
+        },
+        "database.exclude.list" : {
+          "format" : "list,regex",
+          "title" : "Exclude Databases",
+          "description" : "A comma-separated list of regular expressions that match the database names for which changes are to be excluded",
+          "type" : "string",
+          "x-name" : "database.exclude.list",
+          "x-category" : "FILTERS"
+        },
+        "collection.include.list" : {
+          "format" : "list,regex",
+          "title" : "Include Collections",
+          "description" : "A comma-separated list of regular expressions that match the collection names for which changes are to be captured",
+          "type" : "string",
+          "x-name" : "collection.include.list",
+          "x-category" : "FILTERS"
+        },
+        "collection.exclude.list" : {
+          "description" : "A comma-separated list of regular expressions that match the collection names for which changes are to be excluded",
+          "type" : "string",
+          "x-name" : "collection.exclude.list",
+          "x-category" : "FILTERS"
+        },
+        "field.exclude.list" : {
+          "title" : "Exclude Fields",
+          "description" : "A comma-separated list of the fully-qualified names of fields that should be excluded from change event message values",
+          "type" : "string",
+          "x-name" : "field.exclude.list",
+          "x-category" : "FILTERS"
+        },
+        "snapshot.mode" : {
+          "title" : "Snapshot mode",
+          "description" : "The criteria for running a snapshot upon startup of the connector. Options include: 'initial' (the default) to specify the connector should always perform an initial sync when required; 'never' to specify the connector should never perform an initial sync ",
+          "default" : "initial",
+          "enum" : [ "never", "initial" ],
+          "type" : "string",
+          "x-name" : "snapshot.mode",
+          "x-category" : "CONNECTOR_SNAPSHOT"
+        },
+        "query.fetch.size" : {
+          "format" : "int32",
+          "title" : "Query fetch size",
+          "description" : "The maximum number of records that should be loaded into memory while streaming. A value of '0' uses the default JDBC fetch size.",
+          "default" : 0,
+          "type" : "integer",
+          "x-name" : "query.fetch.size",
+          "x-category" : "ADVANCED"
+        },
+        "max.batch.size" : {
+          "format" : "int32",
+          "title" : "Change event batch size",
+          "description" : "Maximum size of each batch of source records. Defaults to 2048.",
+          "default" : 2048,
+          "type" : "integer",
+          "x-name" : "max.batch.size",
+          "x-category" : "ADVANCED"
+        },
+        "max.queue.size" : {
+          "format" : "int32",
+          "title" : "Change event buffer size",
+          "description" : "Maximum size of the queue for change events read from the database log but not yet recorded or forwarded. Defaults to 8192, and should always be larger than the maximum batch size.",
+          "default" : 8192,
+          "type" : "integer",
+          "x-name" : "max.queue.size",
+          "x-category" : "ADVANCED"
+        },
+        "data_shape" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "key" : {
+              "title" : "Kafka Message Key Format",
+              "description" : "The serialization format for the Kafka message key.",
+              "x-name" : "data_shape.key",
+              "x-category" : "CONNECTOR",
+              "$ref" : "#/$defs/serializer"
+            },
+            "value" : {
+              "title" : "Kafka Message Value Format",
+              "description" : "The serialization format for the Kafka message value.",
+              "x-name" : "data_shape.value",
+              "x-category" : "CONNECTOR",
+              "$ref" : "#/$defs/serializer"
+            }
+          }
+        }
+      },
+      "additionalProperties" : true,
+      "x-connector-id" : "mongodb",
+      "x-version" : "2.0.1.Final",
+      "x-className" : "io.debezium.connector.mongodb.MongoDbConnector",
+      "$defs" : {
+        "serializer" : {
+          "type" : "string",
+          "enum" : [ "JSON", "JSON without schema" ],
+          "default" : "JSON"
+        }
+      }
+    }
+  },
+  "channels" : {
+    "stable" : {
+      "shard_metadata" : {
+        "connector_revision" : 1,
+        "operators" : [ {
+          "type" : "debezium-connector-operator",
+          "version" : "[1.0.0,2.0.0)"
+        } ],
+        "connector_type" : "source",
+        "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
+        "container_image" : "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:343bb1f834d1a7424e1ff52f773bce77b1d0672724f005546d76c5b202e5b333"
+      }
+    }
+  }
+}
