@@ -22,7 +22,7 @@ import io.debezium.mcs.envelope.FleetshardCatalogEnvelope;
 public class ManagedConnectorsSchema implements Schema {
 
     public static final List<String> DEFAULT_INCLUDED_CONFIG_OPTIONS = Arrays.asList(
-            "database.server.name",
+            "topic.prefix",
             "database.server.id",
             "database.hostname",
             "database.port",
