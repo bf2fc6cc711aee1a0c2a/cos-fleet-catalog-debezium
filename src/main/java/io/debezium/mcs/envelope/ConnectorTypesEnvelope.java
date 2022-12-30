@@ -70,12 +70,12 @@ public class ConnectorTypesEnvelope {
     }
 
     private ConnectorTypesEnvelope(String name, String version, String title, String description, List<String> connectorLabels, ObjectNode jsonSchema) {
-        this.id = name + "-" + version;
-        this.href = BASE_API_HREF + id;
+        this.id = name;
+        this.href = BASE_API_HREF + id + "-" + version;
         this.name = title;
         this.version = version;
         this.description = description;
-        this.iconHref = BASE_IMAGES_HREF + id + ".png";
+        this.iconHref = BASE_IMAGES_HREF + id + "-" + version + ".png";
         this.labels.addAll(connectorLabels);
         this.jsonSchema = jsonSchema;
     }

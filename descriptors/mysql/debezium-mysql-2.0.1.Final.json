@@ -1,6 +1,6 @@
 {
   "connector_type" : {
-    "id" : "debezium-mysql-2.0.1.Final",
+    "id" : "debezium-mysql",
     "kind" : "ConnectorType",
     "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-2.0.1.Final",
     "name" : "Debezium MySQL Connector",
@@ -12,9 +12,17 @@
     "icon_href" : "http://example.com/images/debezium-mysql-2.0.1.Final.png",
     "schema" : {
       "title" : "Debezium MySQL Connector",
-      "required" : [ "database.hostname", "database.user", "database.server.id" ],
+      "required" : [ "topic.prefix", "database.hostname", "database.user", "database.server.id" ],
       "type" : "object",
       "properties" : {
+        "topic.prefix" : {
+          "title" : "Topic prefix",
+          "description" : "Topic prefix that identifies and provides a namespace for the particular database server/cluster is capturing changes. The topic prefix should be unique across all other connectors, since it is used as a prefix for all Kafka topic names that receive events emitted by this connector. Only alphanumeric characters, hyphens, dots and underscores must be accepted.",
+          "type" : "string",
+          "nullable" : false,
+          "x-name" : "topic.prefix",
+          "x-category" : "CONNECTION"
+        },
         "database.server.id" : {
           "format" : "int64",
           "title" : "Cluster ID",
@@ -202,7 +210,7 @@
   "channels" : {
     "stable" : {
       "shard_metadata" : {
-        "connector_revision" : 1,
+        "connector_revision" : 2,
         "operators" : [ {
           "type" : "debezium-connector-operator",
           "version" : "[1.0.0,2.0.0)"
