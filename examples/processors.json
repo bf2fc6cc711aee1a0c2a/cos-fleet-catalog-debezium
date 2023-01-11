@@ -1,0 +1,101 @@
+{
+  "processors": [
+    {"cast_message": {"apply_to": "message key", "cast_to": "string"}},
+    {"cast_message": {"apply_to": "message value", "cast_to": "string"}},
+
+
+    {
+      "cast_fields": {
+        "apply_to": "message value",
+        "fields": [ {"field_name": "abc", "cast_to": "string"}, {"field_name": "def", "cast_to": "float64"} ]
+      }
+    },
+    {
+      "cast_fields": {
+        "apply_to": "message key",
+        "fields": [ {"field_name": "id", "cast_to": "string"}, {"field_name": "amount", "cast_to": "float64"} ]
+      }
+    },
+
+
+    {"insert_static_field": {"apply_to": "message key", "field_name": "hello.key.field?", "value": "hello value!"}},
+    {"insert_static_field": {"apply_to": "message value", "field_name": "hello.value.field?", "value": "hello value!"}},
+
+
+    {"insert_kafka_field": {"apply_to": "message key", "field_name": "kafka-topic-field!", "kafka_value": "topic name"}},
+    {"insert_kafka_field": {"apply_to": "message value", "field_name": "kafka-partition-field?", "kafka_value": "partition number"}},
+    {"insert_kafka_field": {"apply_to": "message value", "field_name": "kafka-timestamp-field?", "kafka_value": "message timestamp"}},
+
+
+    {
+      "filter_fields": {
+        "apply_to": "message value",
+        "includes": [ "included.hello.key.field" ]
+      }
+    },
+    {
+      "filter_fields": {
+        "apply_to": "message key",
+        "excludes": [ "an_excluded_field" ]
+      }
+    },
+    {
+      "filter_fields": {
+        "apply_to": "message key",
+        "rename_fields": [ {"old_name":  "c2", "new_name": "address"}, {"old_name":  "b2", "new_name": "street_no"} ]
+      }
+    },
+    {
+      "filter_fields": {
+        "apply_to": "message key",
+        "includes": [ "included.hello.key.field" ],
+        "excludes": [ "an_excluded_field" ],
+        "rename_fields": [ {"old_name":  "c2", "new_name": "address"}, {"old_name":  "b2", "new_name": "street_no"} ]
+      }
+    },
+
+
+    {"mask_fields": {"apply_to": "message key", "fields": [ "password", "signature" ]}},
+    {"mask_fields": {"apply_to": "message value", "fields": [ "crc", "password", "signature" ], "replacement": "xxx"}},
+
+
+    {"extract_field": {"apply_to": "message value", "field": "name"}},
+
+
+    {"key_from_value_fields": {"fields": ["id", "customer_id"]}},
+
+
+    {"debezium_topic_router_simple": {"topic_regex": "(.*)customers_shard-(.*)", "output_topic": "$1customer_all_shards"}},
+
+
+    {
+      "debezium_topic_router_unique_keys": {
+        "topic_regex": "(.*)customers_shard-(.*)",
+        "output_topic": "$1customer_all_shards",
+        "key_field_name": "__shard_id"
+      }
+    },
+    {
+      "debezium_topic_router_unique_keys": {
+        "topic_regex": "(.*)customers_shard-(.*)",
+        "output_topic": "$1customer_all_shards",
+        "key_field_name": "__shard_id",
+        "key_field_topic_regex": "(.*)customers_shard(.*)",
+        "key_field_value": "$2"}
+    },
+
+
+    {"convert_to_upsert": { }},
+    {
+      "convert_to_upsert": {
+        "drop_tombstones": true,
+        "delete_handling_mode": "tombstone",
+        "add_metadata_to_value": ["table", "ts_ms", "source.snapshot"],
+        "metadata_value_prefix": "_dbz__",
+        "add_metadata_to_headers":  ["source.connector", "source.version", "source.db"],
+        "metadata_headers_prefix": "_dbz__"
+      }
+    }
+
+  ]
+}

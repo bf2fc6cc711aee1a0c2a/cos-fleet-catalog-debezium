@@ -3,5 +3,54 @@
     "type" : "string",
     "enum" : [ "JSON", "JSON without schema" ],
     "default" : "JSON"
+  },
+  "insert_field_name" : {
+    "title": "Field name",
+    "description": "The name of the field to insert. Suffix with <code>!</code> to make this a required/mandatory field, or <code>?</code> to keep it optional.",
+    "type" : "string"
+  },
+  "apply_to": {
+    "title": "Apply to",
+    "description": "Apply transformation to Kafka message key or message value.",
+    "type" : "string",
+    "enum" : [ "message key", "message value" ]
+  },
+  "kafka_connect_types": {
+    "type": "string",
+    "enum": ["string", "int8", "int16", "int32", "int64", "float32", "float64", "boolean"]
+  },
+  "include_exclude_list": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  },
+  "debezium_topic_router": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["topic", "replacement"],
+    "properties": {
+      "topic": {
+        "type": "string",
+        "format": "regex"
+      },
+      "replacement": {
+        "type": "string",
+        "format": "regex"
+      }
+    }
+  },
+  "debezium_metadata": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "enum": ["op", "ts_ms", "source.ts_ms", "source.version", "source.connector", "source.db", "source.snapshot"]
+    }
+  },
+  "debezium_metadata_prefix": {
+    "title": "Metadata field name prefix",
+    "description": "Optional prefix for the added Debezium metadata fields.",
+    "type" : "string",
+    "default" : "__"
   }
 }
