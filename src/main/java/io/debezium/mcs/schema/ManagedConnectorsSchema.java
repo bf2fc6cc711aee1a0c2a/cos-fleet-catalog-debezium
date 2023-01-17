@@ -49,12 +49,14 @@ public class ManagedConnectorsSchema implements Schema {
             "collection.include.list",
             "collection.exclude.list",
             "field.exclude.list",
-            "database.dbname",
+            "database.names",
             "slot.name",
             "publication.name",
             "publication.autocreate.mode",
             "schema.include.list",
-            "schema.exclude.list");
+            "schema.exclude.list",
+            "schema.history.internal.kafka.topic",
+            "schema.history.internal.kafka.bootstrap.servers");
 
     private static final SchemaDescriptor DESCRIPTOR = new SchemaDescriptor() {
         @Override
