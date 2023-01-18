@@ -156,6 +156,20 @@ objects:
                 "x-name" : "max.queue.size",
                 "x-category" : "ADVANCED"
               },
+              "schema.history.internal.kafka.topic" : {
+                "title" : "Kafka topic name",
+                "description" : "The name of the topic for the database schema history.",
+                "type" : "string",
+                "x-name" : "schema.history.internal.kafka.topic",
+                "x-category" : "CONNECTION"
+              },
+              "schema.history.internal.kafka.bootstrap.servers" : {
+                "title" : "Kafka bootstrap servers",
+                "description" : "A list of host/port pairs that the connector will use for establishing the initial connection to the Kafka cluster for retrieving database schema history previously stored by the connector. This should point to the same Kafka cluster used by the Kafka Connect process.",
+                "type" : "string",
+                "x-name" : "schema.history.internal.kafka.bootstrap.servers",
+                "x-category" : "CONNECTION"
+              },
               "data_shape" : {
                 "type" : "object",
                 "additionalProperties" : false,
