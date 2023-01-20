@@ -54,9 +54,7 @@ public class ManagedConnectorsSchema implements Schema {
             "publication.name",
             "publication.autocreate.mode",
             "schema.include.list",
-            "schema.exclude.list",
-            "schema.history.internal.kafka.topic",
-            "schema.history.internal.kafka.bootstrap.servers");
+            "schema.exclude.list");
 
     private static final SchemaDescriptor DESCRIPTOR = new SchemaDescriptor() {
         @Override
