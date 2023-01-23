@@ -6,7 +6,7 @@
     "name" : "Debezium MySQL Connector",
     "version" : "2.0.1.Final",
     "channels" : [ "stable" ],
-    "description" : null,
+    "description" : "Reads the MySQL binary log and produces change events for row-level operations.",
     "labels" : [ "source", "debezium", "mysql", "2.0.1.Final" ],
     "capabilities" : [ "data_shape" ],
     "icon_href" : "http://example.com/images/debezium-mysql-2.0.1.Final.png",
