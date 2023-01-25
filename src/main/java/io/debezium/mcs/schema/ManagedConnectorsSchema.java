@@ -6,10 +6,14 @@
 package io.debezium.mcs.schema;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.debezium.schemagenerator.schema.Schema;
 import io.debezium.schemagenerator.schema.SchemaDescriptor;
 import io.debezium.schemagenerator.schema.SchemaName;
@@ -56,6 +60,9 @@ public class ManagedConnectorsSchema implements Schema {
             "schema.include.list",
             "schema.exclude.list");
 
+    private static final Pattern VERSION_PATTERN = Pattern
+            .compile("([1-9][0-9]*(?:(?:\\.0)*\\.[1-9][0-9]*)*)(?:-([a-zA-Z0-9]+))?(?:(\\+)(0|[1-9][0-9]*)?)?(?:-([-a-zA-Z0-9.]+))?");
+
     private static final SchemaDescriptor DESCRIPTOR = new SchemaDescriptor() {
         @Override
         public String getId() {
@@ -96,11 +103,34 @@ public class ManagedConnectorsSchema implements Schema {
         });
     }
 
+    private static Runtime.Version parseVersion(String version) {
+        Matcher m = VERSION_PATTERN.matcher(version);
+        if (m.matches()) {
+            return Runtime.Version.parse(version);
+        }
+        else if (m.lookingAt()) {
+            return Runtime.Version.parse(m.group());
+        }
+        throw new IllegalArgumentException("Invalid version string: \"" + version + "\"");
+    }
+
     @Override
     public String getSpec(org.eclipse.microprofile.openapi.models.media.Schema connectorSchema) {
-        ObjectMapper objectMapper = new ObjectMapper();
+        final ObjectMapper mapper = new ObjectMapper();
+
+        JsonNode fleetshardCatalog = mapper.valueToTree(new FleetshardCatalogEnvelope(connectorSchema));
+        final Map<String, Object> schemaExtensions = connectorSchema.getExtensions();
+        final Runtime.Version connectorVersion = parseVersion((String) schemaExtensions.get("version"));
+        final String overridesFilename = "overrides-" + schemaExtensions.get("connector-id") + "-" + connectorVersion.major() + "." + connectorVersion.minor() + ".json";
+        final InputStream overridesFileInputStream = getClass().getClassLoader().getResourceAsStream(overridesFilename);
+        if(null == overridesFileInputStream) {
+            throw new RuntimeException("Overrides file not found: " + overridesFilename);
+        }
+
+        var merger = mapper.readerForUpdating(fleetshardCatalog);
         try {
-            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(new FleetshardCatalogEnvelope(connectorSchema));
+            merger.readTree(overridesFileInputStream);
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(fleetshardCatalog);
         }
         catch (IOException e) {
             throw new RuntimeException(e);
