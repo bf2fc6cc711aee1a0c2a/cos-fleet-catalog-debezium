@@ -1,0 +1,21 @@
+{
+  "connector_type" : {
+    "description" : "Captures row-level changes in the schemas of a SQL Server database."
+  },
+  "channels": {
+    "stable": {
+      "shard_metadata": {
+        "connector_revision": 2,
+        "operators": [
+          {
+            "type": "debezium-connector-operator",
+            "version": "[1.0.0,2.0.0)"
+          }
+        ],
+        "connector_type": "source",
+        "connector_class": "io.debezium.connector.sqlserver.SqlServerConnector",
+        "container_image": "quay.io/rhoas/cos-connector-debezium-sqlserver@sha256:7537bf11243ff83c5d650b0421b294a71fa81a270c41da81315f1c405aede7c7"
+      }
+    }
+  }
+}

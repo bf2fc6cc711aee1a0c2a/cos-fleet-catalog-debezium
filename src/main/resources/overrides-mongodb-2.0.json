@@ -1,0 +1,21 @@
+{
+  "connector_type" : {
+    "description": "Tracks a MongoDB replica set or a MongoDB sharded cluster for document changes in databases and collections, recording those changes as events."
+  },
+  "channels": {
+    "stable": {
+      "shard_metadata": {
+        "connector_revision": 2,
+        "operators": [
+          {
+            "type": "debezium-connector-operator",
+            "version": "[1.0.0,2.0.0)"
+          }
+        ],
+        "connector_type": "source",
+        "connector_class": "io.debezium.connector.mongodb.MongoDbConnector",
+        "container_image": "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:343bb1f834d1a7424e1ff52f773bce77b1d0672724f005546d76c5b202e5b333"
+      }
+    }
+  }
+}
