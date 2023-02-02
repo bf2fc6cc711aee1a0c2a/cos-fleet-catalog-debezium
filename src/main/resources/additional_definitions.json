@@ -6,7 +6,7 @@
   },
   "insert_field_name" : {
     "title": "Field name",
-    "description": "The name of the field to insert. Suffix with <code>!</code> to make this a required/mandatory field, or <code>?</code> to keep it optional.",
+    "description": "The name of the field to insert. Append the suffix <code>!</code> for a required field, or <code>?</code> for an optional field.",
     "type" : "string"
   },
   "apply_to": {

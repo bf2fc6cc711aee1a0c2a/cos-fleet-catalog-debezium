@@ -85,11 +85,10 @@
     },
 
 
-    {"convert_to_upsert": { }},
+    {"convert_to_upsert": { "delete_handling_mode": "tombstone" }},
     {
       "convert_to_upsert": {
-        "drop_tombstones": true,
-        "delete_handling_mode": "tombstone",
+        "delete_handling_mode": "drop",
         "add_metadata_to_value": ["table", "ts_ms", "source.snapshot"],
         "metadata_value_prefix": "_dbz__",
         "add_metadata_to_headers":  ["source.connector", "source.version", "source.db"],
