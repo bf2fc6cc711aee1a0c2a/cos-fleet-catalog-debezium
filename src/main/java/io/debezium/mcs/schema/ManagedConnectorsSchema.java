@@ -53,6 +53,7 @@ public class ManagedConnectorsSchema implements Schema {
             "collection.include.list",
             "collection.exclude.list",
             "field.exclude.list",
+            "database.dbname",
             "database.names",
             "slot.name",
             "publication.name",
