@@ -181,7 +181,7 @@ objects:
                 "items" : {
                   "oneOf" : [ {
                     "title" : "Cast Kafka message key or value",
-                    "description" : "Cast entire Kafka message key or value to another data type.",
+                    "description" : "Cast an entire Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "cast_message" ],
                     "additionalProperties" : false,
@@ -204,7 +204,7 @@ objects:
                     }
                   }, {
                     "title" : "Cast payload fields",
-                    "description" : "Cast specific field/s in a Kafka message key or value to another data type.",
+                    "description" : "Cast specific field(s) in a Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "cast_fields" ],
                     "additionalProperties" : false,
@@ -219,7 +219,7 @@ objects:
                           },
                           "fields" : {
                             "title" : "Fields",
-                            "description" : "List of field names in the payload which values should be cast and the target data type.",
+                            "description" : "A list of the field names and their target data type that you want to cast to.",
                             "type" : "array",
                             "items" : {
                               "type" : "object",
@@ -228,7 +228,7 @@ objects:
                               "properties" : {
                                 "field_name" : {
                                   "title" : "Field name",
-                                  "description" : "The name of the field in the payload which value should be cast to another data type.",
+                                  "description" : "The name of the field in the payload whose value you want to cast to another data type.",
                                   "type" : "string"
                                 },
                                 "cast_to" : {
@@ -244,7 +244,7 @@ objects:
                     }
                   }, {
                     "title" : "Cast payload fields",
-                    "description" : "Cast specific field/s in a Kafka message key or value to another data type.",
+                    "description" : "Cast specific field(s) in a Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "insert_static_field" ],
                     "additionalProperties" : false,
@@ -267,7 +267,7 @@ objects:
                     }
                   }, {
                     "title" : "Insert Kafka metadata field",
-                    "description" : "Insert a field to the payload with Kafka record metadata as value (topic name, partition number, or message timestamp).",
+                    "description" : "Insert a field into the payload. For the field's value, choose from Kafka record metadata: topic name, partition number, or message timestamp.",
                     "type" : "object",
                     "required" : [ "insert_kafka_field" ],
                     "additionalProperties" : false,
@@ -281,7 +281,7 @@ objects:
                           },
                           "kafka_value" : {
                             "title" : "Kafka record metadata type",
-                            "description" : "Choose which Kafka record metadata should be used as value for the inserted field (topic name, partition number, or message timestamp).",
+                            "description" : "Select the Kafka record metadata (topic name, partition number, or message timestamp) to use for the value of the inserted field.",
                             "type" : "string",
                             "enum" : [ "topic name", "partition number", "message timestamp" ]
                           },
@@ -293,7 +293,7 @@ objects:
                     }
                   }, {
                     "title" : "Filter or rename fields",
-                    "description" : "Filter out (excludes) or only pass (includes) specified fields in the payload, and/or rename field names.",
+                    "description" : "Filter out (excludes) or pass (includes) only the specified fields in the payload, and/or rename field names.",
                     "type" : "object",
                     "required" : [ "filter_fields" ],
                     "additionalProperties" : false,
@@ -314,12 +314,12 @@ objects:
                           },
                           "includes" : {
                             "title" : "Included fields",
-                            "description" : "List of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
+                            "description" : "The list of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
                             "$ref" : "#/$defs/include_exclude_list"
                           },
                           "excludes" : {
                             "title" : "Excluded fields",
-                            "description" : "List of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
+                            "description" : "The list of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
                             "$ref" : "#/$defs/include_exclude_list"
                           },
                           "rename_fields" : {
@@ -349,7 +349,7 @@ objects:
                     }
                   }, {
                     "title" : "Mask fields",
-                    "description" : "Mask specified field/s with a valid null value for the field type (0, false, empty string, etc), or with an optional replacement value for numeric and string fields.",
+                    "description" : "Mask fields with a valid null value for the field type (for example: 0, false, empty string, etc) or with a replacement value (only for numeric and string field types).",
                     "type" : "object",
                     "required" : [ "mask_fields" ],
                     "additionalProperties" : false,
@@ -363,7 +363,7 @@ objects:
                           },
                           "fields" : {
                             "title" : "Fields",
-                            "description" : "Fields in the payload whose original values you want to replace with <code>replacement</code>. If no replacement value is specified, values are replaced with a valid null value for the field type (0, false, empty string, and so on).",
+                            "description" : "The fields in the payload whose original values you want to replace with <code>replacement</code>. If you do not specify a replacement value, the original value is replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
                             "type" : "array",
                             "items" : {
                               "type" : "string"
@@ -371,7 +371,7 @@ objects:
                           },
                           "replacement" : {
                             "title" : "Replacement",
-                            "description" : "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (0, false, empty string, and so on).",
+                            "description" : "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
                             "type" : "string"
                           }
                         }
@@ -379,7 +379,7 @@ objects:
                     }
                   }, {
                     "title" : "Extract field",
-                    "description" : "Extract a field from the message's key or value payload and replace the whole key or value with its value.",
+                    "description" : "Extract a field from the message's key or value payload and replace the whole key or value with the value of the extracted field.",
                     "type" : "object",
                     "required" : [ "extract_field" ],
                     "additionalProperties" : false,
@@ -393,7 +393,7 @@ objects:
                           },
                           "field" : {
                             "title" : "Field to extract",
-                            "description" : "Name of the field that gets extracted from the payload and which value will replace the entire key or value.",
+                            "description" : "The name of the field to extract from the payload and whose value replaces the entire key or value.",
                             "type" : "string"
                           }
                         }
@@ -412,7 +412,7 @@ objects:
                         "properties" : {
                           "fields" : {
                             "title" : "Fields for new key",
-                            "description" : "Name/s of the field/s in the payload to be used to replace the original message key.",
+                            "description" : "Name(s) of the field(s) in the payload to be used to replace the original message key.",
                             "type" : "array",
                             "items" : {
                               "type" : "string"
@@ -816,7 +816,7 @@ objects:
                 "items" : {
                   "oneOf" : [ {
                     "title" : "Cast Kafka message key or value",
-                    "description" : "Cast entire Kafka message key or value to another data type.",
+                    "description" : "Cast an entire Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "cast_message" ],
                     "additionalProperties" : false,
@@ -839,7 +839,7 @@ objects:
                     }
                   }, {
                     "title" : "Cast payload fields",
-                    "description" : "Cast specific field/s in a Kafka message key or value to another data type.",
+                    "description" : "Cast specific field(s) in a Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "cast_fields" ],
                     "additionalProperties" : false,
@@ -854,7 +854,7 @@ objects:
                           },
                           "fields" : {
                             "title" : "Fields",
-                            "description" : "List of field names in the payload which values should be cast and the target data type.",
+                            "description" : "A list of the field names and their target data type that you want to cast to.",
                             "type" : "array",
                             "items" : {
                               "type" : "object",
@@ -863,7 +863,7 @@ objects:
                               "properties" : {
                                 "field_name" : {
                                   "title" : "Field name",
-                                  "description" : "The name of the field in the payload which value should be cast to another data type.",
+                                  "description" : "The name of the field in the payload whose value you want to cast to another data type.",
                                   "type" : "string"
                                 },
                                 "cast_to" : {
@@ -879,7 +879,7 @@ objects:
                     }
                   }, {
                     "title" : "Cast payload fields",
-                    "description" : "Cast specific field/s in a Kafka message key or value to another data type.",
+                    "description" : "Cast specific field(s) in a Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "insert_static_field" ],
                     "additionalProperties" : false,
@@ -902,7 +902,7 @@ objects:
                     }
                   }, {
                     "title" : "Insert Kafka metadata field",
-                    "description" : "Insert a field to the payload with Kafka record metadata as value (topic name, partition number, or message timestamp).",
+                    "description" : "Insert a field into the payload. For the field's value, choose from Kafka record metadata: topic name, partition number, or message timestamp.",
                     "type" : "object",
                     "required" : [ "insert_kafka_field" ],
                     "additionalProperties" : false,
@@ -916,7 +916,7 @@ objects:
                           },
                           "kafka_value" : {
                             "title" : "Kafka record metadata type",
-                            "description" : "Choose which Kafka record metadata should be used as value for the inserted field (topic name, partition number, or message timestamp).",
+                            "description" : "Select the Kafka record metadata (topic name, partition number, or message timestamp) to use for the value of the inserted field.",
                             "type" : "string",
                             "enum" : [ "topic name", "partition number", "message timestamp" ]
                           },
@@ -928,7 +928,7 @@ objects:
                     }
                   }, {
                     "title" : "Filter or rename fields",
-                    "description" : "Filter out (excludes) or only pass (includes) specified fields in the payload, and/or rename field names.",
+                    "description" : "Filter out (excludes) or pass (includes) only the specified fields in the payload, and/or rename field names.",
                     "type" : "object",
                     "required" : [ "filter_fields" ],
                     "additionalProperties" : false,
@@ -949,12 +949,12 @@ objects:
                           },
                           "includes" : {
                             "title" : "Included fields",
-                            "description" : "List of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
+                            "description" : "The list of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
                             "$ref" : "#/$defs/include_exclude_list"
                           },
                           "excludes" : {
                             "title" : "Excluded fields",
-                            "description" : "List of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
+                            "description" : "The list of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
                             "$ref" : "#/$defs/include_exclude_list"
                           },
                           "rename_fields" : {
@@ -984,7 +984,7 @@ objects:
                     }
                   }, {
                     "title" : "Mask fields",
-                    "description" : "Mask specified field/s with a valid null value for the field type (0, false, empty string, etc), or with an optional replacement value for numeric and string fields.",
+                    "description" : "Mask fields with a valid null value for the field type (for example: 0, false, empty string, etc) or with a replacement value (only for numeric and string field types).",
                     "type" : "object",
                     "required" : [ "mask_fields" ],
                     "additionalProperties" : false,
@@ -998,7 +998,7 @@ objects:
                           },
                           "fields" : {
                             "title" : "Fields",
-                            "description" : "Fields in the payload whose original values you want to replace with <code>replacement</code>. If no replacement value is specified, values are replaced with a valid null value for the field type (0, false, empty string, and so on).",
+                            "description" : "The fields in the payload whose original values you want to replace with <code>replacement</code>. If you do not specify a replacement value, the original value is replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
                             "type" : "array",
                             "items" : {
                               "type" : "string"
@@ -1006,7 +1006,7 @@ objects:
                           },
                           "replacement" : {
                             "title" : "Replacement",
-                            "description" : "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (0, false, empty string, and so on).",
+                            "description" : "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
                             "type" : "string"
                           }
                         }
@@ -1014,7 +1014,7 @@ objects:
                     }
                   }, {
                     "title" : "Extract field",
-                    "description" : "Extract a field from the message's key or value payload and replace the whole key or value with its value.",
+                    "description" : "Extract a field from the message's key or value payload and replace the whole key or value with the value of the extracted field.",
                     "type" : "object",
                     "required" : [ "extract_field" ],
                     "additionalProperties" : false,
@@ -1028,7 +1028,7 @@ objects:
                           },
                           "field" : {
                             "title" : "Field to extract",
-                            "description" : "Name of the field that gets extracted from the payload and which value will replace the entire key or value.",
+                            "description" : "The name of the field to extract from the payload and whose value replaces the entire key or value.",
                             "type" : "string"
                           }
                         }
@@ -1047,7 +1047,7 @@ objects:
                         "properties" : {
                           "fields" : {
                             "title" : "Fields for new key",
-                            "description" : "Name/s of the field/s in the payload to be used to replace the original message key.",
+                            "description" : "Name(s) of the field(s) in the payload to be used to replace the original message key.",
                             "type" : "array",
                             "items" : {
                               "type" : "string"
@@ -1475,7 +1475,7 @@ objects:
                 "items" : {
                   "oneOf" : [ {
                     "title" : "Cast Kafka message key or value",
-                    "description" : "Cast entire Kafka message key or value to another data type.",
+                    "description" : "Cast an entire Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "cast_message" ],
                     "additionalProperties" : false,
@@ -1498,7 +1498,7 @@ objects:
                     }
                   }, {
                     "title" : "Cast payload fields",
-                    "description" : "Cast specific field/s in a Kafka message key or value to another data type.",
+                    "description" : "Cast specific field(s) in a Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "cast_fields" ],
                     "additionalProperties" : false,
@@ -1513,7 +1513,7 @@ objects:
                           },
                           "fields" : {
                             "title" : "Fields",
-                            "description" : "List of field names in the payload which values should be cast and the target data type.",
+                            "description" : "A list of the field names and their target data type that you want to cast to.",
                             "type" : "array",
                             "items" : {
                               "type" : "object",
@@ -1522,7 +1522,7 @@ objects:
                               "properties" : {
                                 "field_name" : {
                                   "title" : "Field name",
-                                  "description" : "The name of the field in the payload which value should be cast to another data type.",
+                                  "description" : "The name of the field in the payload whose value you want to cast to another data type.",
                                   "type" : "string"
                                 },
                                 "cast_to" : {
@@ -1538,7 +1538,7 @@ objects:
                     }
                   }, {
                     "title" : "Cast payload fields",
-                    "description" : "Cast specific field/s in a Kafka message key or value to another data type.",
+                    "description" : "Cast specific field(s) in a Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "insert_static_field" ],
                     "additionalProperties" : false,
@@ -1561,7 +1561,7 @@ objects:
                     }
                   }, {
                     "title" : "Insert Kafka metadata field",
-                    "description" : "Insert a field to the payload with Kafka record metadata as value (topic name, partition number, or message timestamp).",
+                    "description" : "Insert a field into the payload. For the field's value, choose from Kafka record metadata: topic name, partition number, or message timestamp.",
                     "type" : "object",
                     "required" : [ "insert_kafka_field" ],
                     "additionalProperties" : false,
@@ -1575,7 +1575,7 @@ objects:
                           },
                           "kafka_value" : {
                             "title" : "Kafka record metadata type",
-                            "description" : "Choose which Kafka record metadata should be used as value for the inserted field (topic name, partition number, or message timestamp).",
+                            "description" : "Select the Kafka record metadata (topic name, partition number, or message timestamp) to use for the value of the inserted field.",
                             "type" : "string",
                             "enum" : [ "topic name", "partition number", "message timestamp" ]
                           },
@@ -1587,7 +1587,7 @@ objects:
                     }
                   }, {
                     "title" : "Filter or rename fields",
-                    "description" : "Filter out (excludes) or only pass (includes) specified fields in the payload, and/or rename field names.",
+                    "description" : "Filter out (excludes) or pass (includes) only the specified fields in the payload, and/or rename field names.",
                     "type" : "object",
                     "required" : [ "filter_fields" ],
                     "additionalProperties" : false,
@@ -1608,12 +1608,12 @@ objects:
                           },
                           "includes" : {
                             "title" : "Included fields",
-                            "description" : "List of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
+                            "description" : "The list of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
                             "$ref" : "#/$defs/include_exclude_list"
                           },
                           "excludes" : {
                             "title" : "Excluded fields",
-                            "description" : "List of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
+                            "description" : "The list of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
                             "$ref" : "#/$defs/include_exclude_list"
                           },
                           "rename_fields" : {
@@ -1643,7 +1643,7 @@ objects:
                     }
                   }, {
                     "title" : "Mask fields",
-                    "description" : "Mask specified field/s with a valid null value for the field type (0, false, empty string, etc), or with an optional replacement value for numeric and string fields.",
+                    "description" : "Mask fields with a valid null value for the field type (for example: 0, false, empty string, etc) or with a replacement value (only for numeric and string field types).",
                     "type" : "object",
                     "required" : [ "mask_fields" ],
                     "additionalProperties" : false,
@@ -1657,7 +1657,7 @@ objects:
                           },
                           "fields" : {
                             "title" : "Fields",
-                            "description" : "Fields in the payload whose original values you want to replace with <code>replacement</code>. If no replacement value is specified, values are replaced with a valid null value for the field type (0, false, empty string, and so on).",
+                            "description" : "The fields in the payload whose original values you want to replace with <code>replacement</code>. If you do not specify a replacement value, the original value is replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
                             "type" : "array",
                             "items" : {
                               "type" : "string"
@@ -1665,7 +1665,7 @@ objects:
                           },
                           "replacement" : {
                             "title" : "Replacement",
-                            "description" : "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (0, false, empty string, and so on).",
+                            "description" : "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
                             "type" : "string"
                           }
                         }
@@ -1673,7 +1673,7 @@ objects:
                     }
                   }, {
                     "title" : "Extract field",
-                    "description" : "Extract a field from the message's key or value payload and replace the whole key or value with its value.",
+                    "description" : "Extract a field from the message's key or value payload and replace the whole key or value with the value of the extracted field.",
                     "type" : "object",
                     "required" : [ "extract_field" ],
                     "additionalProperties" : false,
@@ -1687,7 +1687,7 @@ objects:
                           },
                           "field" : {
                             "title" : "Field to extract",
-                            "description" : "Name of the field that gets extracted from the payload and which value will replace the entire key or value.",
+                            "description" : "The name of the field to extract from the payload and whose value replaces the entire key or value.",
                             "type" : "string"
                           }
                         }
@@ -1706,7 +1706,7 @@ objects:
                         "properties" : {
                           "fields" : {
                             "title" : "Fields for new key",
-                            "description" : "Name/s of the field/s in the payload to be used to replace the original message key.",
+                            "description" : "Name(s) of the field(s) in the payload to be used to replace the original message key.",
                             "type" : "array",
                             "items" : {
                               "type" : "string"
@@ -2084,7 +2084,7 @@ objects:
                 "items" : {
                   "oneOf" : [ {
                     "title" : "Cast Kafka message key or value",
-                    "description" : "Cast entire Kafka message key or value to another data type.",
+                    "description" : "Cast an entire Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "cast_message" ],
                     "additionalProperties" : false,
@@ -2107,7 +2107,7 @@ objects:
                     }
                   }, {
                     "title" : "Cast payload fields",
-                    "description" : "Cast specific field/s in a Kafka message key or value to another data type.",
+                    "description" : "Cast specific field(s) in a Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "cast_fields" ],
                     "additionalProperties" : false,
@@ -2122,7 +2122,7 @@ objects:
                           },
                           "fields" : {
                             "title" : "Fields",
-                            "description" : "List of field names in the payload which values should be cast and the target data type.",
+                            "description" : "A list of the field names and their target data type that you want to cast to.",
                             "type" : "array",
                             "items" : {
                               "type" : "object",
@@ -2131,7 +2131,7 @@ objects:
                               "properties" : {
                                 "field_name" : {
                                   "title" : "Field name",
-                                  "description" : "The name of the field in the payload which value should be cast to another data type.",
+                                  "description" : "The name of the field in the payload whose value you want to cast to another data type.",
                                   "type" : "string"
                                 },
                                 "cast_to" : {
@@ -2147,7 +2147,7 @@ objects:
                     }
                   }, {
                     "title" : "Cast payload fields",
-                    "description" : "Cast specific field/s in a Kafka message key or value to another data type.",
+                    "description" : "Cast specific field(s) in a Kafka message key or value to another data type.",
                     "type" : "object",
                     "required" : [ "insert_static_field" ],
                     "additionalProperties" : false,
@@ -2170,7 +2170,7 @@ objects:
                     }
                   }, {
                     "title" : "Insert Kafka metadata field",
-                    "description" : "Insert a field to the payload with Kafka record metadata as value (topic name, partition number, or message timestamp).",
+                    "description" : "Insert a field into the payload. For the field's value, choose from Kafka record metadata: topic name, partition number, or message timestamp.",
                     "type" : "object",
                     "required" : [ "insert_kafka_field" ],
                     "additionalProperties" : false,
@@ -2184,7 +2184,7 @@ objects:
                           },
                           "kafka_value" : {
                             "title" : "Kafka record metadata type",
-                            "description" : "Choose which Kafka record metadata should be used as value for the inserted field (topic name, partition number, or message timestamp).",
+                            "description" : "Select the Kafka record metadata (topic name, partition number, or message timestamp) to use for the value of the inserted field.",
                             "type" : "string",
                             "enum" : [ "topic name", "partition number", "message timestamp" ]
                           },
@@ -2196,7 +2196,7 @@ objects:
                     }
                   }, {
                     "title" : "Filter or rename fields",
-                    "description" : "Filter out (excludes) or only pass (includes) specified fields in the payload, and/or rename field names.",
+                    "description" : "Filter out (excludes) or pass (includes) only the specified fields in the payload, and/or rename field names.",
                     "type" : "object",
                     "required" : [ "filter_fields" ],
                     "additionalProperties" : false,
@@ -2217,12 +2217,12 @@ objects:
                           },
                           "includes" : {
                             "title" : "Included fields",
-                            "description" : "List of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
+                            "description" : "The list of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
                             "$ref" : "#/$defs/include_exclude_list"
                           },
                           "excludes" : {
                             "title" : "Excluded fields",
-                            "description" : "List of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
+                            "description" : "The list of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
                             "$ref" : "#/$defs/include_exclude_list"
                           },
                           "rename_fields" : {
@@ -2252,7 +2252,7 @@ objects:
                     }
                   }, {
                     "title" : "Mask fields",
-                    "description" : "Mask specified field/s with a valid null value for the field type (0, false, empty string, etc), or with an optional replacement value for numeric and string fields.",
+                    "description" : "Mask fields with a valid null value for the field type (for example: 0, false, empty string, etc) or with a replacement value (only for numeric and string field types).",
                     "type" : "object",
                     "required" : [ "mask_fields" ],
                     "additionalProperties" : false,
@@ -2266,7 +2266,7 @@ objects:
                           },
                           "fields" : {
                             "title" : "Fields",
-                            "description" : "Fields in the payload whose original values you want to replace with <code>replacement</code>. If no replacement value is specified, values are replaced with a valid null value for the field type (0, false, empty string, and so on).",
+                            "description" : "The fields in the payload whose original values you want to replace with <code>replacement</code>. If you do not specify a replacement value, the original value is replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
                             "type" : "array",
                             "items" : {
                               "type" : "string"
@@ -2274,7 +2274,7 @@ objects:
                           },
                           "replacement" : {
                             "title" : "Replacement",
-                            "description" : "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (0, false, empty string, and so on).",
+                            "description" : "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
                             "type" : "string"
                           }
                         }
@@ -2282,7 +2282,7 @@ objects:
                     }
                   }, {
                     "title" : "Extract field",
-                    "description" : "Extract a field from the message's key or value payload and replace the whole key or value with its value.",
+                    "description" : "Extract a field from the message's key or value payload and replace the whole key or value with the value of the extracted field.",
                     "type" : "object",
                     "required" : [ "extract_field" ],
                     "additionalProperties" : false,
@@ -2296,7 +2296,7 @@ objects:
                           },
                           "field" : {
                             "title" : "Field to extract",
-                            "description" : "Name of the field that gets extracted from the payload and which value will replace the entire key or value.",
+                            "description" : "The name of the field to extract from the payload and whose value replaces the entire key or value.",
                             "type" : "string"
                           }
                         }
@@ -2315,7 +2315,7 @@ objects:
                         "properties" : {
                           "fields" : {
                             "title" : "Fields for new key",
-                            "description" : "Name/s of the field/s in the payload to be used to replace the original message key.",
+                            "description" : "Name(s) of the field(s) in the payload to be used to replace the original message key.",
                             "type" : "array",
                             "items" : {
                               "type" : "string"

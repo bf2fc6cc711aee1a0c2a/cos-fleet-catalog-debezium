@@ -1,19 +1,19 @@
 {
-  "serializer" : {
-    "type" : "string",
-    "enum" : [ "JSON", "JSON without schema" ],
-    "default" : "JSON"
+  "serializer": {
+    "type": "string",
+    "enum": [ "JSON", "JSON without schema" ],
+    "default": "JSON"
   },
-  "insert_field_name" : {
+  "insert_field_name": {
     "title": "Field name",
     "description": "The name of the field to insert. Append the suffix <code>!</code> for a required field, or <code>?</code> for an optional field.",
-    "type" : "string"
+    "type": "string"
   },
   "apply_to": {
     "title": "Apply to",
     "description": "Apply transformation to Kafka message key or message value.",
-    "type" : "string",
-    "enum" : [ "message key", "message value" ]
+    "type": "string",
+    "enum": [ "message key", "message value" ]
   },
   "kafka_connect_types": {
     "type": "string",
@@ -50,7 +50,7 @@
   "debezium_metadata_prefix": {
     "title": "Metadata field name prefix",
     "description": "Optional prefix for the added Debezium metadata fields.",
-    "type" : "string",
-    "default" : "__"
+    "type": "string",
+    "default": "__"
   }
 }
