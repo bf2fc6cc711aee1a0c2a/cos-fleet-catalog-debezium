@@ -4,6 +4,11 @@
     "enum": [ "JSON", "JSON without schema" ],
     "default": "JSON"
   },
+  "processor_step_description": {
+    "title": "Step name or description",
+    "description": "Optionally you can give this processor step a name or a short description.",
+    "type": "string"
+  },
   "insert_field_name": {
     "title": "Field name",
     "description": "The name of the field to insert. Append the suffix <code>!</code> for a required field, or <code>?</code> for an optional field.",

@@ -1,10 +1,14 @@
 {
   "processors": [
-    {"cast_message": {"apply_to": "message key", "cast_to": "string"}},
+    {
+      "x-step-description": "Step 01: Some optional user description what this processor/transformation step is doing",
+      "cast_message": {"apply_to": "message key", "cast_to": "string"}
+    },
     {"cast_message": {"apply_to": "message value", "cast_to": "string"}},
 
 
     {
+      "x-step-description": "03 Make abc field a string and the def field a float number",
       "cast_fields": {
         "apply_to": "message value",
         "fields": [ {"field_name": "abc", "cast_to": "string"}, {"field_name": "def", "cast_to": "float64"} ]
@@ -28,12 +32,14 @@
 
 
     {
+      "x-step-description": "A short comment what happens in this transform step",
       "filter_fields": {
         "apply_to": "message value",
         "includes": [ "included.hello.key.field" ]
       }
     },
     {
+      "x-step-description": "Exclude all sensitive data",
       "filter_fields": {
         "apply_to": "message key",
         "excludes": [ "an_excluded_field" ]
@@ -56,7 +62,10 @@
 
 
     {"mask_fields": {"apply_to": "message key", "fields": [ "password", "signature" ]}},
-    {"mask_fields": {"apply_to": "message value", "fields": [ "crc", "password", "signature" ], "replacement": "xxx"}},
+    {
+      "x-step-description": "Mask sensitive data (checksum, pw, signature) with xxx",
+      "mask_fields": {"apply_to": "message value", "fields": [ "crc", "password", "signature" ], "replacement": "xxx"}
+    },
 
 
     {"extract_field": {"apply_to": "message value", "field": "name"}},
@@ -69,6 +78,7 @@
 
 
     {
+      "x-step-description": "Route sharded 'customers` tables into one topic",
       "debezium_topic_router_unique_keys": {
         "topic_regex": "(.*)customers_shard-(.*)",
         "output_topic": "$1customer_all_shards",
@@ -85,7 +95,10 @@
     },
 
 
-    {"convert_to_upsert": { "delete_handling_mode": "tombstone" }},
+    {
+      "x-step-description": "Use upsert records with tombstones",
+      "convert_to_upsert": { "delete_handling_mode": "tombstone" }
+    },
     {
       "convert_to_upsert": {
         "delete_handling_mode": "drop",
