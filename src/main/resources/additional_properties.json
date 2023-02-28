@@ -64,7 +64,7 @@
                 },
                 "fields": {
                   "title": "Fields",
-                  "description": "A list of the field names and their target data type that you want to cast to.",
+                  "description": "A list of the field names and the target data types for the fields that you want to cast.",
                   "type": "array",
                   "items": {
                     "type": "object",
@@ -114,7 +114,7 @@
         },
         {
           "title": "Insert Kafka metadata field",
-          "description": "Insert a field into the payload. For the field's value, choose from Kafka record metadata: topic name, partition number, or message timestamp.",
+          "description": "Insert a field into the payload. For the field's value, select a Kafka record metadata type: topic name, partition number, or message timestamp.",
           "type": "object",
           "required": ["insert_kafka_field"],
           "additionalProperties": false,
@@ -284,7 +284,7 @@
                 },
                 "output_topic": {
                   "title": "Output topic",
-                  "description": "A regular expression replacement string that defines the destination topic name based on the captured groups from <code>topic_regex</code> .",
+                  "description": "A string that defines the destination topic name. The destination topic name can be static or dynamic. To define dynamic destination topic name(s) use the capture groups matched from <code>topic_regex</code>.",
                   "type": "string"
                 }
               }
@@ -310,7 +310,7 @@
                 },
                 "output_topic": {
                   "title": "Output topic",
-                  "description": "A regular expression replacement string that defines the destination topic name based on the captured groups from <code>topic_regex</code> .",
+                  "description": "A string that defines the destination topic name. The destination topic name can be static or dynamic. To define dynamic destination topic name(s) use the capture groups matched from <code>topic_regex</code>.",
                   "type": "string"
                 },
                 "key_field_name": {
