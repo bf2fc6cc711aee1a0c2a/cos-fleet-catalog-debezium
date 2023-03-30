@@ -1,22 +1,380 @@
 {
-  "data_shape" : {
-    "type" : "object",
-    "additionalProperties" : false,
-    "properties" : {
-      "key" : {
-        "title" : "Kafka Message Key Format",
-        "description" : "The serialization format for the Kafka message key.",
-        "x-name" : "data_shape.key",
-        "x-category" : "CONNECTOR",
-        "$ref" : "#/$defs/serializer"
+  "data_shape": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "key": {
+        "title": "Kafka Message Key Format",
+        "description": "The serialization format for the Kafka message key.",
+        "x-name": "data_shape.key",
+        "x-category": "CONNECTOR",
+        "$ref": "#/$defs/serializer"
       },
-      "value" : {
-        "title" : "Kafka Message Value Format",
-        "description" : "The serialization format for the Kafka message value.",
-        "x-name" : "data_shape.value",
-        "x-category" : "CONNECTOR",
-        "$ref" : "#/$defs/serializer"
+      "value": {
+        "title": "Kafka Message Value Format",
+        "description": "The serialization format for the Kafka message value.",
+        "x-name": "data_shape.value",
+        "x-category": "CONNECTOR",
+        "$ref": "#/$defs/serializer"
       }
+    }
+  },
+  "processors": {
+    "type": "array",
+    "items": {
+      "oneOf": [
+        {
+          "title": "Cast Kafka message key or value",
+          "description": "Cast an entire Kafka message key or value to another data type.",
+          "type": "object",
+          "required": ["cast_message"],
+          "additionalProperties": false,
+          "properties": {
+            "cast_message": {
+              "type": "object",
+              "required": ["apply_to", "cast_to"],
+              "additionalProperties": false,
+              "properties": {
+                "apply_to": {
+                  "$ref": "#/$defs/apply_to"
+                },
+                "cast_to": {
+                  "title": "Target data type",
+                  "description": "The target data type to cast to.",
+                  "$ref": "#/$defs/kafka_connect_types"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cast payload fields",
+          "description": "Cast specific field(s) in a Kafka message key or value to another data type.",
+          "type": "object",
+          "required": ["cast_fields"],
+          "additionalProperties": false,
+          "properties": {
+            "cast_fields": {
+              "type": "object",
+              "required": ["apply_to", "fields"],
+              "additionalProperties": false,
+              "properties": {
+                "apply_to": {
+                  "$ref": "#/$defs/apply_to"
+                },
+                "fields": {
+                  "title": "Fields",
+                  "description": "A list of the field names and the target data types for the fields that you want to cast.",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["field_name", "cast_to"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "field_name": {
+                        "title": "Field name",
+                        "description": "The name of the field in the payload whose value you want to cast to another data type.",
+                        "type": "string"
+                      },
+                      "cast_to": {
+                        "title": "Target type",
+                        "description": "The target data type to cast to.",
+                        "$ref": "#/$defs/kafka_connect_types"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cast payload fields",
+          "description": "Cast specific field(s) in a Kafka message key or value to another data type.",
+          "type": "object",
+          "required": ["insert_static_field"],
+          "additionalProperties": false,
+          "properties": {
+            "insert_static_field": {
+              "additionalProperties": false,
+              "required": ["apply_to", "field_name", "value"],
+              "properties": {
+                "apply_to": {
+                  "$ref": "#/$defs/apply_to"
+                },
+                "field_name": {
+                  "$ref": "#/$defs/insert_field_name"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Insert Kafka metadata field",
+          "description": "Insert a field into the payload. For the field's value, select a Kafka record metadata type: topic name, partition number, or message timestamp.",
+          "type": "object",
+          "required": ["insert_kafka_field"],
+          "additionalProperties": false,
+          "properties": {
+            "insert_kafka_field": {
+              "additionalProperties": false,
+              "required": ["apply_to", "kafka_value", "field_name"],
+              "properties": {
+                "apply_to": {
+                  "$ref": "#/$defs/apply_to"
+                },
+                "kafka_value": {
+                  "title": "Kafka record metadata type",
+                  "description": "Select the Kafka record metadata (topic name, partition number, or message timestamp) to use for the value of the inserted field.",
+                  "type": "string",
+                  "enum": ["topic name", "partition number", "message timestamp"]
+                },
+                "field_name": {
+                  "$ref": "#/$defs/insert_field_name"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Filter or rename fields",
+          "description": "Filter out (excludes) or pass (includes) only the specified fields in the payload, and/or rename field names.",
+          "type": "object",
+          "required": ["filter_fields"],
+          "additionalProperties": false,
+          "properties": {
+            "filter_fields": {
+              "additionalProperties": false,
+              "required": ["apply_to"],
+              "anyOf": [{"required": ["includes"]}, {"required": ["excludes"]}, {"required": ["rename_fields"]}],
+              "properties": {
+                "apply_to": {
+                  "$ref": "#/$defs/apply_to"
+                },
+                "includes": {
+                  "title": "Included fields",
+                  "description": "The list of field names of fields to include in the payload. Fields that are not listed are removed from the payload. Note that the \"Excluded fields\" list takes precedence over the \"Included fields\" list.",
+                  "$ref": "#/$defs/include_exclude_list"
+                },
+                "excludes": {
+                  "title": "Excluded fields",
+                  "description": "The list of field names of fields to remove from the payload. The \"Exclude fields\" list takes precedence over the \"Included fields\" list.",
+                  "$ref": "#/$defs/include_exclude_list"
+                },
+                "rename_fields": {
+                  "title": "Rename fields",
+                  "description": "Rename fields in the payload.",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["old_name", "new_name"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "old_name": {
+                        "title": "Old field name",
+                        "description": "The original label of the field that you want to rename in the payload.",
+                        "type": "string"
+                      },
+                      "new_name": {
+                        "title": "New field name",
+                        "description": "The new name of the field.",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Mask fields",
+          "description": "Mask fields with a valid null value for the field type (for example: 0, false, empty string, etc) or with a replacement value (only for numeric and string field types).",
+          "type": "object",
+          "required": ["mask_fields"],
+          "additionalProperties": false,
+          "properties": {
+            "mask_fields": {
+              "additionalProperties": false,
+              "required": ["apply_to", "fields"],
+              "properties": {
+                "apply_to": {"$ref": "#/$defs/apply_to"},
+                "fields": {
+                  "title": "Fields",
+                  "description": "The fields in the payload whose original values you want to replace with <code>replacement</code>. If you do not specify a replacement value, the original value is replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "replacement": {
+                  "title": "Replacement",
+                  "description": "When set, the values of the specified fields are replaced with this value which will be converted to the correct type. If no replacement value is specified, values are replaced with a valid null value for the field type (for example: 0, false, empty string, etc).",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Extract field",
+          "description": "Extract a field from the message's key or value payload and replace the whole key or value with the value of the extracted field.",
+          "type": "object",
+          "required": ["extract_field"],
+          "additionalProperties": false,
+          "properties": {
+            "extract_field": {
+              "additionalProperties": false,
+              "required": ["apply_to", "field"],
+              "properties": {
+                "apply_to": {
+                  "$ref": "#/$defs/apply_to"
+                },
+                "field": {
+                  "title": "Field to extract",
+                  "description": "The name of the field to extract from the payload and whose value replaces the entire key or value.",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Message key from fields",
+          "description": "Replace the message key with one or more fields from the message's value payload.",
+          "type": "object",
+          "required": ["key_from_value_fields"],
+          "additionalProperties": false,
+          "properties": {
+            "key_from_value_fields": {
+              "additionalProperties": false,
+              "required": ["fields"],
+              "properties": {
+                "fields": {
+                  "title": "Fields for new key",
+                  "description": "Name(s) of the field(s) in the payload to be used to replace the original message key.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Simple Debezium Topic Router (not enforcing message key uniqueness)",
+          "description": "Simple Debezium Topic Router for sending change events from multiple physical tables to a specified Kafka topic. The router does not enforce message key uniqueness. See: <a href=\"https://debezium.io/documentation/reference/transformations/topic-routing.html\">Topic Routing section</a> in the Debezium docs.",
+          "type": "object",
+          "required": ["debezium_topic_router_simple"],
+          "additionalProperties": false,
+          "properties": {
+            "debezium_topic_router_simple": {
+              "additionalProperties": false,
+              "required": ["topic_regex", "output_topic"],
+              "properties": {
+                "topic_regex": {
+                  "title": "Input topic regex",
+                  "description": "A regular expression that evaluates the original destination topic name of each message that the connector emits to determine whether to route it to an alternate destination topic. The expression captures one or more groups of characters to apply in <code>output_topic</code>.",
+                  "type": "string",
+                  "format": "regex"
+                },
+                "output_topic": {
+                  "title": "Output topic",
+                  "description": "A string that defines the destination topic name. The destination topic name can be static or dynamic. To define dynamic destination topic name(s) use the capture groups matched from <code>topic_regex</code>.",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Unique Key Debezium Topic Router (enforcing message key uniqueness)",
+          "description": "Debezium Topic Router for sending change events from multiple physical tables to a specified Kafka topic. The router enforces message key uniqueness. See: <a href=\"https://debezium.io/documentation/reference/transformations/topic-routing.html\">Topic Routing section</a> in the Debezium docs.",
+          "type": "object",
+          "required": ["debezium_topic_router_unique_keys"],
+          "additionalProperties": false,
+          "properties": {
+            "debezium_topic_router_unique_keys": {
+              "additionalProperties": false,
+              "required": ["topic_regex", "output_topic", "key_field_name"],
+              "properties": {
+                "topic_regex": {
+                  "title": "Input topic regex",
+                  "description": "A regular expression on the original destination topic name of each message that determines if it should be routed to a another destination topic and captures one or more groups of characters to be applied in <code>output_topic</code>",
+                  "type": "string",
+                  "format": "regex"
+                },
+                "output_topic": {
+                  "title": "Output topic",
+                  "description": "A string that defines the destination topic name. The destination topic name can be static or dynamic. To define dynamic destination topic name(s) use the capture groups matched from <code>topic_regex</code>.",
+                  "type": "string"
+                },
+                "key_field_name": {
+                  "title": "Key field name",
+                  "description": "Specifies the name of the field to add to the message key. The field value identifies the name of the source table, based on the original destination topic name. Optionally, you can manipulate the key field by setting the <code>key_field_topic_regex</code> and <code>key_field_value</code>.",
+                  "type": "string",
+                  "default": "__dbz__physicalTableIdentifier"
+                },
+                "key_field_topic_regex": {
+                  "title": "Key field topic regex",
+                  "description": "A  regular expression that is applied to the original destination topic name to capture one or more groups of characters and then apply them in <code>key_field_value</code>",
+                  "type": "string",
+                  "format": "regex",
+                  "default": "(.*)"
+                },
+                "key_field_value": {
+                  "title": "Key field value",
+                  "description": "A regular expression replacement string that sets the value of the inserted key field based on the captured groups from <code>key_field_topic_regex</code>.",
+                  "type": "string",
+                  "default": "$1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Convert to upsert record (extract new record state)",
+          "description": "Convert the complex Debezium data format into a flat upsert record. This transformation will remove the Debezium \"envelope\" with its metadata from the message and will only keep the updated dataset/row.",
+          "type": "object",
+          "required": ["convert_to_upsert"],
+          "additionalProperties": false,
+          "properties": {
+            "convert_to_upsert": {
+              "additionalProperties": false,
+              "required": ["delete_handling_mode"],
+              "properties": {
+                "delete_handling_mode": {
+                  "title": "Handle DELETE events",
+                  "description": "When set to \"tombstone\" for each DELETE operation a tombstone record will be send to Kafka. When set to \"drop\" DELETE event records will be removed from the stream and not send to Kafka.",
+                  "type": "string",
+                  "default": "tombstone",
+                  "enum": ["tombstone", "drop"]
+                },
+                "add_metadata_to_value": {
+                  "title": "Add Debezium metadata to the Kafka message value",
+                  "description": "Optionally select Debezium metadata that should be added to the Kafka message value as additional fields of the payload.",
+                  "$ref": "#/$defs/debezium_metadata"
+                },
+                "metadata_value_prefix": {
+                  "$ref": "#/$defs/debezium_metadata_prefix"
+                },
+                "add_metadata_to_headers": {
+                  "title": "Add Debezium metadata to Kafka message headers",
+                  "description": "Optionally select Debezium metadata that should be added to the Kafka message headers as additional header fields.",
+                  "$ref": "#/$defs/debezium_metadata"
+                },
+                "metadata_headers_prefix": {
+                  "$ref": "#/$defs/debezium_metadata_prefix"
+                }
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }
