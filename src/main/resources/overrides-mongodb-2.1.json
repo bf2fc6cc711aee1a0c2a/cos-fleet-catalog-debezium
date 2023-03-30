@@ -5,7 +5,7 @@
   "channels": {
     "stable": {
       "shard_metadata": {
-        "connector_revision": 2,
+        "connector_revision": 3,
         "operators": [
           {
             "type": "debezium-connector-operator",
@@ -14,7 +14,7 @@
         ],
         "connector_type": "source",
         "connector_class": "io.debezium.connector.mongodb.MongoDbConnector",
-        "container_image": "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:343bb1f834d1a7424e1ff52f773bce77b1d0672724f005546d76c5b202e5b333"
+        "container_image": "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:4335e48071bbe122ef0df68481039c089d076b0a59d7397fbbc85c95f6bf966c"
       }
     }
   }

@@ -5,7 +5,7 @@
   "channels": {
     "stable": {
       "shard_metadata": {
-        "connector_revision": 2,
+        "connector_revision": 3,
         "operators": [
           {
             "type": "debezium-connector-operator",
@@ -14,7 +14,7 @@
         ],
         "connector_type": "source",
         "connector_class": "io.debezium.connector.postgresql.PostgresConnector",
-        "container_image": "quay.io/rhoas/cos-connector-debezium-postgres@sha256:81b1354c9a52b604715507952929a794f46d391807437bc0bd4d31eaeeba9d2b"
+        "container_image": "quay.io/rhoas/rhoc-connector-debezium-postgres@sha256:0afe274e12169bf02390a73cbc965f9b840496a6835c32165939cd44abe98b21"
       }
     }
   }

@@ -8,8 +8,8 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
-    <debezium.schemabuilder.version>2.0.1.Final</debezium.schemabuilder.version>
-    <debezium.base.version>2.0.1.Final</debezium.base.version>
+    <debezium.schemabuilder.version>2.1.2.Final</debezium.schemabuilder.version>
+    <debezium.base.version>2.1.2.Final</debezium.base.version>
     <kafka.version>3.3.1</kafka.version>
     <descriptor.output.directory>${project.basedir}/descriptors</descriptor.output.directory>
     <maven.compiler.plugin.version>3.9.0</maven.compiler.plugin.version>

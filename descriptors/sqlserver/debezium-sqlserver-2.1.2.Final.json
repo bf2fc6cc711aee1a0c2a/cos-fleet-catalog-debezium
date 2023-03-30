@@ -2,14 +2,14 @@
   "connector_type" : {
     "id" : "debezium-sqlserver",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-sqlserver-2.0.1.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-sqlserver-2.1.2.Final",
     "name" : "Debezium SQLServer Connector",
-    "version" : "2.0.1.Final",
+    "version" : "2.1.2.Final",
     "channels" : [ "stable" ],
     "description" : "Captures row-level changes in the schemas of a SQL Server database.",
-    "labels" : [ "source", "debezium", "sqlserver", "2.0.1.Final" ],
+    "labels" : [ "source", "debezium", "sqlserver", "2.1.2.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-sqlserver-2.0.1.Final.png",
+    "icon_href" : "http://example.com/images/debezium-sqlserver-2.1.2.Final.png",
     "schema" : {
       "title" : "Debezium SQLServer Connector",
       "required" : [ "topic.prefix", "database.hostname" ],
@@ -178,7 +178,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "sqlserver",
-      "x-version" : "2.0.1.Final",
+      "x-version" : "2.1.2.Final",
       "x-className" : "io.debezium.connector.sqlserver.SqlServerConnector",
       "$defs" : {
         "serializer" : {
@@ -192,14 +192,14 @@
   "channels" : {
     "stable" : {
       "shard_metadata" : {
-        "connector_revision" : 2,
+        "connector_revision" : 3,
         "operators" : [ {
           "type" : "debezium-connector-operator",
           "version" : "[1.0.0,2.0.0)"
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.sqlserver.SqlServerConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-sqlserver@sha256:7537bf11243ff83c5d650b0421b294a71fa81a270c41da81315f1c405aede7c7"
+        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:9d5b8b351d79768f9d871ffcb977818542157b06c74acc6823ae9c82215b42a0"
       }
     }
   }

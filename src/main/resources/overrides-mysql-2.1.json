@@ -5,7 +5,7 @@
   "channels": {
     "stable": {
       "shard_metadata": {
-        "connector_revision": 2,
+        "connector_revision": 3,
         "operators": [
           {
             "type": "debezium-connector-operator",
@@ -14,7 +14,7 @@
         ],
         "connector_type": "source",
         "connector_class": "io.debezium.connector.mysql.MySqlConnector",
-        "container_image": "quay.io/rhoas/cos-connector-debezium-mysql@sha256:cda0265dcf72acf824542da5744f36877e09680af1f4ad2b1f2f1f2163765126"
+        "container_image": "quay.io/rhoas/rhoc-connector-debezium-mysql@sha256:5f0e72d6a66ba3e9c7ece971abfa38b5b7a14e760651f8630a485cedf256e977"
       }
     }
   }

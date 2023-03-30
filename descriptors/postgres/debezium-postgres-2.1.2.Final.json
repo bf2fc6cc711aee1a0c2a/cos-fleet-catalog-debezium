@@ -2,14 +2,14 @@
   "connector_type" : {
     "id" : "debezium-postgres",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-postgres-2.0.1.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-postgres-2.1.2.Final",
     "name" : "Debezium PostgreSQL Connector",
-    "version" : "2.0.1.Final",
+    "version" : "2.1.2.Final",
     "channels" : [ "stable" ],
     "description" : "Captures row-level changes in the schemas of a PostgreSQL database by using the `pgoutput` plugin.",
-    "labels" : [ "source", "debezium", "postgres", "2.0.1.Final" ],
+    "labels" : [ "source", "debezium", "postgres", "2.1.2.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-postgres-2.0.1.Final.png",
+    "icon_href" : "http://example.com/images/debezium-postgres-2.1.2.Final.png",
     "schema" : {
       "title" : "Debezium PostgreSQL Connector",
       "required" : [ "topic.prefix", "database.hostname", "database.user", "database.dbname" ],
@@ -220,7 +220,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "postgres",
-      "x-version" : "2.0.1.Final",
+      "x-version" : "2.1.2.Final",
       "x-className" : "io.debezium.connector.postgresql.PostgresConnector",
       "$defs" : {
         "serializer" : {
@@ -234,14 +234,14 @@
   "channels" : {
     "stable" : {
       "shard_metadata" : {
-        "connector_revision" : 2,
+        "connector_revision" : 3,
         "operators" : [ {
           "type" : "debezium-connector-operator",
           "version" : "[1.0.0,2.0.0)"
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.postgresql.PostgresConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-postgres@sha256:81b1354c9a52b604715507952929a794f46d391807437bc0bd4d31eaeeba9d2b"
+        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-postgres@sha256:0afe274e12169bf02390a73cbc965f9b840496a6835c32165939cd44abe98b21"
       }
     }
   }

@@ -2,14 +2,14 @@
   "connector_type" : {
     "id" : "debezium-mongodb",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-2.0.1.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-2.1.2.Final",
     "name" : "Debezium MongoDB Connector",
-    "version" : "2.0.1.Final",
+    "version" : "2.1.2.Final",
     "channels" : [ "stable" ],
     "description" : "Tracks a MongoDB replica set or a MongoDB sharded cluster for document changes in databases and collections, recording those changes as events.",
-    "labels" : [ "source", "debezium", "mongodb", "2.0.1.Final" ],
+    "labels" : [ "source", "debezium", "mongodb", "2.1.2.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-mongodb-2.0.1.Final.png",
+    "icon_href" : "http://example.com/images/debezium-mongodb-2.1.2.Final.png",
     "schema" : {
       "title" : "Debezium MongoDB Connector",
       "required" : [ "topic.prefix" ],
@@ -166,7 +166,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "mongodb",
-      "x-version" : "2.0.1.Final",
+      "x-version" : "2.1.2.Final",
       "x-className" : "io.debezium.connector.mongodb.MongoDbConnector",
       "$defs" : {
         "serializer" : {
@@ -180,14 +180,14 @@
   "channels" : {
     "stable" : {
       "shard_metadata" : {
-        "connector_revision" : 2,
+        "connector_revision" : 3,
         "operators" : [ {
           "type" : "debezium-connector-operator",
           "version" : "[1.0.0,2.0.0)"
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
-        "container_image" : "quay.io/rhoas/cos-connector-debezium-mongodb@sha256:343bb1f834d1a7424e1ff52f773bce77b1d0672724f005546d76c5b202e5b333"
+        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:4335e48071bbe122ef0df68481039c089d076b0a59d7397fbbc85c95f6bf966c"
       }
     }
   }
