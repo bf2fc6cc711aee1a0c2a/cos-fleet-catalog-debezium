@@ -2,14 +2,14 @@
   "connector_type" : {
     "id" : "debezium-mongodb",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-2.1.2.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-2.1.4.Final",
     "name" : "Debezium MongoDB Connector",
-    "version" : "2.1.2.Final",
+    "version" : "2.1.4.Final",
     "channels" : [ "stable" ],
     "description" : "Tracks a MongoDB replica set or a MongoDB sharded cluster for document changes in databases and collections, recording those changes as events.",
-    "labels" : [ "source", "debezium", "mongodb", "2.1.2.Final" ],
+    "labels" : [ "source", "debezium", "mongodb", "2.1.4.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-mongodb-2.1.2.Final.png",
+    "icon_href" : "http://example.com/images/debezium-mongodb-2.1.4.Final.png",
     "schema" : {
       "title" : "Debezium MongoDB Connector",
       "required" : [ "topic.prefix" ],
@@ -166,7 +166,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "mongodb",
-      "x-version" : "2.1.2.Final",
+      "x-version" : "2.1.4.Final",
       "x-className" : "io.debezium.connector.mongodb.MongoDbConnector",
       "$defs" : {
         "serializer" : {
@@ -187,7 +187,7 @@
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
-        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:4335e48071bbe122ef0df68481039c089d076b0a59d7397fbbc85c95f6bf966c"
+        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:34311ada4360f29349d06909ea690df14928ca1d6399b7cd493142ce77cbdb75"
       }
     }
   }

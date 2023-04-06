@@ -2,14 +2,14 @@
   "connector_type" : {
     "id" : "debezium-mysql",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-2.1.2.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-2.1.4.Final",
     "name" : "Debezium MySQL Connector",
-    "version" : "2.1.2.Final",
+    "version" : "2.1.4.Final",
     "channels" : [ "stable" ],
     "description" : "Reads the MySQL binary log and produces change events for row-level operations.",
-    "labels" : [ "source", "debezium", "mysql", "2.1.2.Final" ],
+    "labels" : [ "source", "debezium", "mysql", "2.1.4.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-mysql-2.1.2.Final.png",
+    "icon_href" : "http://example.com/images/debezium-mysql-2.1.4.Final.png",
     "schema" : {
       "title" : "Debezium MySQL Connector",
       "required" : [ "topic.prefix", "database.hostname", "database.user", "database.server.id" ],
@@ -196,7 +196,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "mysql",
-      "x-version" : "2.1.2.Final",
+      "x-version" : "2.1.4.Final",
       "x-className" : "io.debezium.connector.mysql.MySqlConnector",
       "$defs" : {
         "serializer" : {
@@ -217,7 +217,7 @@
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.mysql.MySqlConnector",
-        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mysql@sha256:5f0e72d6a66ba3e9c7ece971abfa38b5b7a14e760651f8630a485cedf256e977"
+        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mysql@sha256:8b5cd2ba48036fdbcfdd695f6fde4ec0360cc89c9ee06fe50692294be0186118"
       }
     }
   }

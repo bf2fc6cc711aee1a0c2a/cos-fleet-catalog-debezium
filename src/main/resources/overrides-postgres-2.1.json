@@ -14,7 +14,7 @@
         ],
         "connector_type": "source",
         "connector_class": "io.debezium.connector.postgresql.PostgresConnector",
-        "container_image": "quay.io/rhoas/rhoc-connector-debezium-postgres@sha256:0afe274e12169bf02390a73cbc965f9b840496a6835c32165939cd44abe98b21"
+        "container_image": "quay.io/rhoas/rhoc-connector-debezium-postgres@sha256:cd600ba2cbea18538189e25325773fdac8ab0659eb31c3b9e10efeec3f652509"
       }
     }
   }

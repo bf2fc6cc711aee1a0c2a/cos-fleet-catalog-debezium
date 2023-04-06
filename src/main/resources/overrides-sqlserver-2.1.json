@@ -14,7 +14,7 @@
         ],
         "connector_type": "source",
         "connector_class": "io.debezium.connector.sqlserver.SqlServerConnector",
-        "container_image": "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:9d5b8b351d79768f9d871ffcb977818542157b06c74acc6823ae9c82215b42a0"
+        "container_image": "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:0976abbbde9173d0721884a185f9f82c024f0eaf75565b1f5da074a9dad03654"
       }
     }
   }

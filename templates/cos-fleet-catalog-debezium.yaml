@@ -10,19 +10,19 @@ objects:
 -
   apiVersion: v1
   data:
-    debezium-mongodb-2.1.2.Final.json: |-
+    debezium-mongodb-2.1.4.Final.json: |-
       {
         "connector_type" : {
           "id" : "debezium-mongodb",
           "kind" : "ConnectorType",
-          "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-2.1.2.Final",
+          "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mongodb-2.1.4.Final",
           "name" : "Debezium MongoDB Connector",
-          "version" : "2.1.2.Final",
+          "version" : "2.1.4.Final",
           "channels" : [ "stable" ],
           "description" : "Tracks a MongoDB replica set or a MongoDB sharded cluster for document changes in databases and collections, recording those changes as events.",
-          "labels" : [ "source", "debezium", "mongodb", "2.1.2.Final" ],
+          "labels" : [ "source", "debezium", "mongodb", "2.1.4.Final" ],
           "capabilities" : [ "data_shape" ],
-          "icon_href" : "http://example.com/images/debezium-mongodb-2.1.2.Final.png",
+          "icon_href" : "http://example.com/images/debezium-mongodb-2.1.4.Final.png",
           "schema" : {
             "title" : "Debezium MongoDB Connector",
             "required" : [ "topic.prefix" ],
@@ -179,7 +179,7 @@ objects:
             },
             "additionalProperties" : true,
             "x-connector-id" : "mongodb",
-            "x-version" : "2.1.2.Final",
+            "x-version" : "2.1.4.Final",
             "x-className" : "io.debezium.connector.mongodb.MongoDbConnector",
             "$defs" : {
               "serializer" : {
@@ -200,7 +200,7 @@ objects:
               } ],
               "connector_type" : "source",
               "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
-              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:4335e48071bbe122ef0df68481039c089d076b0a59d7397fbbc85c95f6bf966c"
+              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:34311ada4360f29349d06909ea690df14928ca1d6399b7cd493142ce77cbdb75"
             }
           }
         }
@@ -212,19 +212,19 @@ objects:
 -
   apiVersion: v1
   data:
-    debezium-mysql-2.1.2.Final.json: |-
+    debezium-mysql-2.1.4.Final.json: |-
       {
         "connector_type" : {
           "id" : "debezium-mysql",
           "kind" : "ConnectorType",
-          "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-2.1.2.Final",
+          "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-mysql-2.1.4.Final",
           "name" : "Debezium MySQL Connector",
-          "version" : "2.1.2.Final",
+          "version" : "2.1.4.Final",
           "channels" : [ "stable" ],
           "description" : "Reads the MySQL binary log and produces change events for row-level operations.",
-          "labels" : [ "source", "debezium", "mysql", "2.1.2.Final" ],
+          "labels" : [ "source", "debezium", "mysql", "2.1.4.Final" ],
           "capabilities" : [ "data_shape" ],
-          "icon_href" : "http://example.com/images/debezium-mysql-2.1.2.Final.png",
+          "icon_href" : "http://example.com/images/debezium-mysql-2.1.4.Final.png",
           "schema" : {
             "title" : "Debezium MySQL Connector",
             "required" : [ "topic.prefix", "database.hostname", "database.user", "database.server.id" ],
@@ -411,7 +411,7 @@ objects:
             },
             "additionalProperties" : true,
             "x-connector-id" : "mysql",
-            "x-version" : "2.1.2.Final",
+            "x-version" : "2.1.4.Final",
             "x-className" : "io.debezium.connector.mysql.MySqlConnector",
             "$defs" : {
               "serializer" : {
@@ -432,7 +432,7 @@ objects:
               } ],
               "connector_type" : "source",
               "connector_class" : "io.debezium.connector.mysql.MySqlConnector",
-              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mysql@sha256:5f0e72d6a66ba3e9c7ece971abfa38b5b7a14e760651f8630a485cedf256e977"
+              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mysql@sha256:8b5cd2ba48036fdbcfdd695f6fde4ec0360cc89c9ee06fe50692294be0186118"
             }
           }
         }
@@ -444,19 +444,19 @@ objects:
 -
   apiVersion: v1
   data:
-    debezium-postgres-2.1.2.Final.json: |-
+    debezium-postgres-2.1.4.Final.json: |-
       {
         "connector_type" : {
           "id" : "debezium-postgres",
           "kind" : "ConnectorType",
-          "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-postgres-2.1.2.Final",
+          "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-postgres-2.1.4.Final",
           "name" : "Debezium PostgreSQL Connector",
-          "version" : "2.1.2.Final",
+          "version" : "2.1.4.Final",
           "channels" : [ "stable" ],
           "description" : "Captures row-level changes in the schemas of a PostgreSQL database by using the `pgoutput` plugin.",
-          "labels" : [ "source", "debezium", "postgres", "2.1.2.Final" ],
+          "labels" : [ "source", "debezium", "postgres", "2.1.4.Final" ],
           "capabilities" : [ "data_shape" ],
-          "icon_href" : "http://example.com/images/debezium-postgres-2.1.2.Final.png",
+          "icon_href" : "http://example.com/images/debezium-postgres-2.1.4.Final.png",
           "schema" : {
             "title" : "Debezium PostgreSQL Connector",
             "required" : [ "topic.prefix", "database.hostname", "database.user", "database.dbname" ],
@@ -667,7 +667,7 @@ objects:
             },
             "additionalProperties" : true,
             "x-connector-id" : "postgres",
-            "x-version" : "2.1.2.Final",
+            "x-version" : "2.1.4.Final",
             "x-className" : "io.debezium.connector.postgresql.PostgresConnector",
             "$defs" : {
               "serializer" : {
@@ -688,7 +688,7 @@ objects:
               } ],
               "connector_type" : "source",
               "connector_class" : "io.debezium.connector.postgresql.PostgresConnector",
-              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-postgres@sha256:0afe274e12169bf02390a73cbc965f9b840496a6835c32165939cd44abe98b21"
+              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-postgres@sha256:cd600ba2cbea18538189e25325773fdac8ab0659eb31c3b9e10efeec3f652509"
             }
           }
         }
@@ -700,19 +700,19 @@ objects:
 -
   apiVersion: v1
   data:
-    debezium-sqlserver-2.1.2.Final.json: |-
+    debezium-sqlserver-2.1.4.Final.json: |-
       {
         "connector_type" : {
           "id" : "debezium-sqlserver",
           "kind" : "ConnectorType",
-          "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-sqlserver-2.1.2.Final",
+          "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-sqlserver-2.1.4.Final",
           "name" : "Debezium SQLServer Connector",
-          "version" : "2.1.2.Final",
+          "version" : "2.1.4.Final",
           "channels" : [ "stable" ],
           "description" : "Captures row-level changes in the schemas of a SQL Server database.",
-          "labels" : [ "source", "debezium", "sqlserver", "2.1.2.Final" ],
+          "labels" : [ "source", "debezium", "sqlserver", "2.1.4.Final" ],
           "capabilities" : [ "data_shape" ],
-          "icon_href" : "http://example.com/images/debezium-sqlserver-2.1.2.Final.png",
+          "icon_href" : "http://example.com/images/debezium-sqlserver-2.1.4.Final.png",
           "schema" : {
             "title" : "Debezium SQLServer Connector",
             "required" : [ "topic.prefix", "database.hostname" ],
@@ -881,7 +881,7 @@ objects:
             },
             "additionalProperties" : true,
             "x-connector-id" : "sqlserver",
-            "x-version" : "2.1.2.Final",
+            "x-version" : "2.1.4.Final",
             "x-className" : "io.debezium.connector.sqlserver.SqlServerConnector",
             "$defs" : {
               "serializer" : {
@@ -902,7 +902,7 @@ objects:
               } ],
               "connector_type" : "source",
               "connector_class" : "io.debezium.connector.sqlserver.SqlServerConnector",
-              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:9d5b8b351d79768f9d871ffcb977818542157b06c74acc6823ae9c82215b42a0"
+              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:0976abbbde9173d0721884a185f9f82c024f0eaf75565b1f5da074a9dad03654"
             }
           }
         }

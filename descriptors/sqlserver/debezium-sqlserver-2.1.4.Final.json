@@ -2,14 +2,14 @@
   "connector_type" : {
     "id" : "debezium-sqlserver",
     "kind" : "ConnectorType",
-    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-sqlserver-2.1.2.Final",
+    "href" : "/api/connector_mgmt/v1/kafka_connector_types/debezium-sqlserver-2.1.4.Final",
     "name" : "Debezium SQLServer Connector",
-    "version" : "2.1.2.Final",
+    "version" : "2.1.4.Final",
     "channels" : [ "stable" ],
     "description" : "Captures row-level changes in the schemas of a SQL Server database.",
-    "labels" : [ "source", "debezium", "sqlserver", "2.1.2.Final" ],
+    "labels" : [ "source", "debezium", "sqlserver", "2.1.4.Final" ],
     "capabilities" : [ "data_shape" ],
-    "icon_href" : "http://example.com/images/debezium-sqlserver-2.1.2.Final.png",
+    "icon_href" : "http://example.com/images/debezium-sqlserver-2.1.4.Final.png",
     "schema" : {
       "title" : "Debezium SQLServer Connector",
       "required" : [ "topic.prefix", "database.hostname" ],
@@ -178,7 +178,7 @@
       },
       "additionalProperties" : true,
       "x-connector-id" : "sqlserver",
-      "x-version" : "2.1.2.Final",
+      "x-version" : "2.1.4.Final",
       "x-className" : "io.debezium.connector.sqlserver.SqlServerConnector",
       "$defs" : {
         "serializer" : {
@@ -199,7 +199,7 @@
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.sqlserver.SqlServerConnector",
-        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:9d5b8b351d79768f9d871ffcb977818542157b06c74acc6823ae9c82215b42a0"
+        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:0976abbbde9173d0721884a185f9f82c024f0eaf75565b1f5da074a9dad03654"
       }
     }
   }
