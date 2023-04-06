@@ -193,7 +193,7 @@ objects:
         "channels" : {
           "stable" : {
             "shard_metadata" : {
-              "connector_revision" : 3,
+              "connector_revision" : 4,
               "operators" : [ {
                 "type" : "debezium-connector-operator",
                 "version" : "[1.0.0,2.0.0)"
@@ -425,7 +425,7 @@ objects:
         "channels" : {
           "stable" : {
             "shard_metadata" : {
-              "connector_revision" : 3,
+              "connector_revision" : 4,
               "operators" : [ {
                 "type" : "debezium-connector-operator",
                 "version" : "[1.0.0,2.0.0)"
@@ -681,7 +681,7 @@ objects:
         "channels" : {
           "stable" : {
             "shard_metadata" : {
-              "connector_revision" : 3,
+              "connector_revision" : 4,
               "operators" : [ {
                 "type" : "debezium-connector-operator",
                 "version" : "[1.0.0,2.0.0)"
@@ -895,7 +895,7 @@ objects:
         "channels" : {
           "stable" : {
             "shard_metadata" : {
-              "connector_revision" : 3,
+              "connector_revision" : 4,
               "operators" : [ {
                 "type" : "debezium-connector-operator",
                 "version" : "[1.0.0,2.0.0)"
