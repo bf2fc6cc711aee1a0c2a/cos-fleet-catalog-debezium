@@ -180,14 +180,14 @@
   "channels" : {
     "stable" : {
       "shard_metadata" : {
-        "connector_revision" : 4,
+        "connector_revision" : 5,
         "operators" : [ {
           "type" : "debezium-connector-operator",
           "version" : "[1.0.0,2.0.0)"
         } ],
         "connector_type" : "source",
         "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
-        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:34311ada4360f29349d06909ea690df14928ca1d6399b7cd493142ce77cbdb75"
+        "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:ee0368b29bc87df38ff8520ea9eab8bdfc4f1e0b9d67e8a6933379b4240147cd"
       }
     }
   }

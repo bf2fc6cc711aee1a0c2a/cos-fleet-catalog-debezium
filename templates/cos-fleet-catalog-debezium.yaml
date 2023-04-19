@@ -193,14 +193,14 @@ objects:
         "channels" : {
           "stable" : {
             "shard_metadata" : {
-              "connector_revision" : 4,
+              "connector_revision" : 5,
               "operators" : [ {
                 "type" : "debezium-connector-operator",
                 "version" : "[1.0.0,2.0.0)"
               } ],
               "connector_type" : "source",
               "connector_class" : "io.debezium.connector.mongodb.MongoDbConnector",
-              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:34311ada4360f29349d06909ea690df14928ca1d6399b7cd493142ce77cbdb75"
+              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mongodb@sha256:ee0368b29bc87df38ff8520ea9eab8bdfc4f1e0b9d67e8a6933379b4240147cd"
             }
           }
         }
@@ -425,14 +425,14 @@ objects:
         "channels" : {
           "stable" : {
             "shard_metadata" : {
-              "connector_revision" : 4,
+              "connector_revision" : 5,
               "operators" : [ {
                 "type" : "debezium-connector-operator",
                 "version" : "[1.0.0,2.0.0)"
               } ],
               "connector_type" : "source",
               "connector_class" : "io.debezium.connector.mysql.MySqlConnector",
-              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mysql@sha256:8b5cd2ba48036fdbcfdd695f6fde4ec0360cc89c9ee06fe50692294be0186118"
+              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-mysql@sha256:2d4ce1684e57524c9d4b57f24d24c6feab1703f7a90e06be8e5b02c9d0cb5fe3"
             }
           }
         }
@@ -681,14 +681,14 @@ objects:
         "channels" : {
           "stable" : {
             "shard_metadata" : {
-              "connector_revision" : 4,
+              "connector_revision" : 5,
               "operators" : [ {
                 "type" : "debezium-connector-operator",
                 "version" : "[1.0.0,2.0.0)"
               } ],
               "connector_type" : "source",
               "connector_class" : "io.debezium.connector.postgresql.PostgresConnector",
-              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-postgres@sha256:cd600ba2cbea18538189e25325773fdac8ab0659eb31c3b9e10efeec3f652509"
+              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-postgres@sha256:866e0ad116d899abe593a29fd9ad85cc482516895bcc3ff969b2ba55e920aaff"
             }
           }
         }
@@ -895,14 +895,14 @@ objects:
         "channels" : {
           "stable" : {
             "shard_metadata" : {
-              "connector_revision" : 4,
+              "connector_revision" : 5,
               "operators" : [ {
                 "type" : "debezium-connector-operator",
                 "version" : "[1.0.0,2.0.0)"
               } ],
               "connector_type" : "source",
               "connector_class" : "io.debezium.connector.sqlserver.SqlServerConnector",
-              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:0976abbbde9173d0721884a185f9f82c024f0eaf75565b1f5da074a9dad03654"
+              "container_image" : "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:4f2783ff04ee35f2c64e965e31576ff647f4c12301963e7108e4c74d1d651298"
             }
           }
         }

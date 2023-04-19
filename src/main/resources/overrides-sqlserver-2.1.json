@@ -5,7 +5,7 @@
   "channels": {
     "stable": {
       "shard_metadata": {
-        "connector_revision": 4,
+        "connector_revision": 5,
         "operators": [
           {
             "type": "debezium-connector-operator",
@@ -14,7 +14,7 @@
         ],
         "connector_type": "source",
         "connector_class": "io.debezium.connector.sqlserver.SqlServerConnector",
-        "container_image": "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:0976abbbde9173d0721884a185f9f82c024f0eaf75565b1f5da074a9dad03654"
+        "container_image": "quay.io/rhoas/rhoc-connector-debezium-sqlserver@sha256:4f2783ff04ee35f2c64e965e31576ff647f4c12301963e7108e4c74d1d651298"
       }
     }
   }
